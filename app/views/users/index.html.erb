@@ -26,6 +26,11 @@
       <td><%= link_to 'Show', user_path(user) %></td>
       <td><%= link_to 'Edit', edit_user_path(user) %></td>
       <td><%= link_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% if user.profile.present? %>
+        <td><%= link_to 'Edit Profile', edit_profile_path(user.profile, user_id: user.id) %></td>
+      <% else %>
+        <td><%= link_to 'Add Profile', new_profile_path(user_id: user.id) %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

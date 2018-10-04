@@ -38,6 +38,12 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+
+    # Delete profile if one exists for user
+    if @user.profile.present?
+      @user.profile.destroy
+    end
+
     @user.destroy
 
     redirect_to users_path

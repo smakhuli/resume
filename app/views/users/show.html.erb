@@ -1,3 +1,5 @@
+<h2> User Information </h2>
+
 <p>
   <strong>First Name:</strong>
   <%= @user.first_name %>
@@ -28,5 +30,42 @@
   <%= @user.job_description %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit User', edit_user_path(@user) %>
+
+<% if @user.profile.present? %>
+  <h2> Profile Information </h2>
+
+  <p>
+    <strong>Address Line 1:</strong>
+    <%= @user.profile.address1 %>
+  </p>
+
+  <% if @user.profile.address2.present? %>
+    <p>
+      <strong>Address Line 2:</strong>
+      <%= @user.profile.address2 %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong>City:</strong>
+    <%= @user.profile.city %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= @user.profile.state %>
+  </p>
+
+  <p>
+    <strong>Postal Code:</strong>
+    <%= @user.profile.zip_code %>
+  </p>
+
+  <%= link_to 'Edit Profile', edit_profile_path(@user.profile, user_id: @user.id) %>
+
+<% end %>
+
+<p>
+  <%= link_to 'Back', users_path %>
+</p>

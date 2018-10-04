@@ -1,0 +1,46 @@
+<%= form_with(model: @profile, local: true) do |form| %>
+
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@profile.errors.count, "error") %> prevented this profile from being saved:
+      </h2>
+      <ul>
+        <% @profile.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id, value: @user_id %>
+
+  <p>
+    <%= form.label :address1 %><br>
+    <%= form.text_field :address1 %>
+  </p>
+
+  <p>
+    <%= form.label :address2 %><br>
+    <%= form.text_field :address2 %>
+  </p>
+
+  <p>
+    <%= form.label :city %><br>
+    <%= form.text_field :city %>
+  </p>
+
+  <p>
+    <%= form.label :state %><br>
+    <%= form.text_field :state %>
+  </p>
+
+  <p>
+    <%= form.label :zip_code %><br>
+    <%= form.text_field :zip_code %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
