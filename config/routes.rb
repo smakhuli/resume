@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
+  get 'resume/index'
 
   resources :users
 
-  root 'welcome#index'
+  root 'resume#index'
 end

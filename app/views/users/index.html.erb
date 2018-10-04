@@ -1,4 +1,8 @@
-<h1>LUsers</h1>
+<h1>Users</h1>
+
+<p>
+  <%= link_to 'New User', new_user_path %>
+</p>
 
 <table>
   <tr>
@@ -8,7 +12,7 @@
     <th>Phone</th>
     <th>Email</th>
     <th>Job Description</th>
-    <th></th>
+    <th>Actions</th>
   </tr>
 
   <% @users.each do |user| %>
@@ -20,6 +24,8 @@
       <td><%= user.email %></td>
       <td><%= user.job_description %></td>
       <td><%= link_to 'Show', user_path(user) %></td>
+      <td><%= link_to 'Edit', edit_user_path(user) %></td>
+      <td><%= link_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
