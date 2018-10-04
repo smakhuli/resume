@@ -30,6 +30,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
+      @user.remove_avatar_image if params[:user][:remove_avatar] == '1' && @user.avatar.url.present?
+
       redirect_to @user
     else
       render 'edit'
@@ -52,6 +54,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :middle_name, :last_name, :phone, :email, :job_description)
+    params.require(:user).permit(:first_name, :middle_name, :last_name, :phone, :email, :job_description, :avatar)
   end
 end

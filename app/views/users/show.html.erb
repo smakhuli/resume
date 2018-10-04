@@ -2,6 +2,12 @@
   <%= @user.full_name %>
 </h3>
 
+<% if @user.avatar.present? %>
+  <div>
+    <%= image_tag(@user.avatar.url) %>
+  </div>
+<% end %>
+
 <% if @user.profile.present? %>
   <p>
     <%= @user.profile.address1 %>
