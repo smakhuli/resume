@@ -1,29 +1,8 @@
-<h2> User Information </h2>
-
-<p>
+<h3>
   <%= @user.full_name %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @user.phone %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Job Description:</strong>
-  <%= @user.job_description %>
-</p>
-
-<%= link_to 'Edit User', edit_user_path(@user) %>
+</h3>
 
 <% if @user.profile.present? %>
-  <h2> Profile Information </h2>
-
   <p>
     <%= @user.profile.address1 %>
 
@@ -35,11 +14,34 @@
     <br/>
     <%= @user.profile.city %>, <%= @user.profile.state %>, <%= @user.profile.zip_code %>
   </p>
-
-  <%= link_to 'Edit Profile', edit_profile_path(@user.profile, user_id: @user.id) %>
-
 <% end %>
 
 <p>
+  <strong>Phone:</strong>
+  <% if @user.phone.length == 10 %>
+    <%= number_to_phone(@user.phone, area_code: true) %>
+  <% else %>
+    <%= @user.phone %>
+  <% end %>
+
+  <br/>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Objective:</strong>
+  <%= @user.job_description %>
+</p>
+
+<p>
+  <%= link_to 'Edit User', edit_user_path(@user) %> |
+
+  <% if @user.profile.present? %>
+    <%= link_to 'Edit Profile', edit_profile_path(@user.profile, user_id: @user.id) %> |
+  <% else %>
+    <%= link_to 'Add Profile', new_profile_path(user_id: @user.id) %> |
+  <% end %>
+
   <%= link_to 'Back', users_path %>
 </p>

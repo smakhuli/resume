@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def full_name
-    first_name + (middle_name.present? ? ' ' + middle_name + ' ' : ' ') + last_name
+    [first_name, middle_name, last_name].select(&:present?).join(' ').titleize
   end
+
 end
