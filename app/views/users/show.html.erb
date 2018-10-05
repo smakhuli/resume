@@ -7,7 +7,7 @@
     <%= image_tag(@user.avatar.url) %>
   </div>
 <% end %>
- 
+
 <% if @user.profile.present? %>
   <p>
     <%= @user.profile.address1 %>
@@ -40,6 +40,38 @@
   <%= @user.job_description %>
 </p>
 
+<% if @user.employment_records.any? %>
+  <h2>Employment History</h2>
+
+  <p>
+    <% @user.employment_records.each do |employment_record| %>
+      <h3>
+        <strong>Employer:</strong>
+        <%= employment_record.employer_name %>
+      </h3>
+
+      <strong>Start Date:</strong>
+      <%= employment_record.start_date.strftime("%m-%d-%Y") %>
+      <br/>
+
+      <strong>End Date:</strong>
+      <% if employment_record.end_date.present? %>
+        <%= employment_record.end_date.strftime("%m-%d-%Y") %>
+      <% else %>
+        Still Employed
+      <% end %>
+      <br/>
+
+      <strong>Job Title:</strong>
+      <%= employment_record.job_title %>
+      <br/>
+
+      <strong>Job Description:</strong>
+      <%= employment_record.job_description %>
+    <% end %>
+  </p>
+<% end %>
+
 <p>
   <%= link_to 'Edit User', edit_user_path(@user) %> |
 
@@ -47,6 +79,12 @@
     <%= link_to 'Edit Profile', edit_profile_path(@user.profile, user_id: @user.id) %> |
   <% else %>
     <%= link_to 'Add Profile', new_profile_path(user_id: @user.id) %> |
+  <% end %>
+
+  <% if @user.employment_records.any? %>
+    <%= link_to 'View Employment Records', employment_records_path(user_id: @user.id) %> |
+  <% else %>
+    <%= link_to 'Add Employment Record', new_employment_record_path(user_id: @user.id) %> |
   <% end %>
 
   <%= link_to 'Back', users_path %>

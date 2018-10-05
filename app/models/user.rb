@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_one :profile
+  has_many :employment_records
 
   validates :first_name, :last_name, :email, :job_description, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

@@ -1,0 +1,38 @@
+<h1>Employment Records for <%= "#{User.find(@user_id).full_name}" %></h1>
+
+<p>
+  <%= link_to 'New Employment Record', new_employment_record_path(user_id: @user_id) %>
+</p>
+
+<% if @employment_records.any? %>
+  <table>
+    <tr>
+      <th>Employer Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Job Title</th>
+      <th></th>
+    </tr>
+
+    <% @employment_records.each do |employment_record| %>
+      <tr>
+        <td><%= employment_record.employer_name %></td>
+        <td><%= employment_record.start_date.strftime("%m-%d-%Y") %></td>
+
+        <td>
+          <% if employment_record.end_date.present? %>
+            <%= employment_record.end_date.strftime("%m-%d-%Y") %>
+          <% else %>
+            Still Employed
+          <% end %>
+        </td>
+
+        <td><%= employment_record.job_title %></td>
+        <td><%= link_to 'Edit', edit_employment_record_path(employment_record, user_id: @user_id) %></td>
+        <td><%= link_to 'Destroy', employment_record_path(employment_record, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+<% else %>
+  <p>No Employment Records Have been Entered</p>
+<% end %>
+</table>

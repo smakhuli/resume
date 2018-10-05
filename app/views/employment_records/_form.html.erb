@@ -1,0 +1,46 @@
+<%= form_with(model: @employment_record, local: true) do |form| %>
+
+  <% if @employment_record.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@employment_record.errors.count, "error") %> prevented this employment record from being saved:
+      </h2>
+      <ul>
+        <% @employment_record.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id, value: @user_id %>
+
+  <p>
+    <%= form.label :employer_name %><br>
+    <%= form.text_field :employer_name %>
+  </p>
+
+  <p>
+    <%= form.label :start_date %><br>
+    <%= form.date_select(:start_date, start_year: Date.today.year - 100, end_year: Date.today.year, :order => [:month, :day, :year]) %>
+  </p>
+
+  <p>
+    <%= form.label :end_date %><br>
+    <%= form.date_select(:end_date, include_blank: true, start_year: Date.today.year - 100, end_year: Date.today.year, :order => [:month, :day, :year]) %>
+  </p>
+
+  <p>
+    <%= form.label :job_title %><br>
+    <%= form.text_field :job_title %>
+  </p>
+
+  <p>
+    <%= form.label :job_description %><br>
+    <%= form.text_area :job_description %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
