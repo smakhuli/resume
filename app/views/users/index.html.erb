@@ -26,9 +26,9 @@
         <td><%= link_to 'Edit User', edit_user_path(user) %></td>
 
         <% if user.profile.present? %>
-          <td><%= link_to 'Edit Profile', edit_profile_path(user.profile, user_id: user.id) %></td>
+          <td><%= link_to 'Edit Profile', edit_user_profile_path(user.profile, user_id: user.id) %></td>
         <% else %>
-          <td><%= link_to 'Add Profile', new_profile_path(user_id: user.id) %></td>
+          <td><%= link_to 'Add Profile', new_user_profile_path(user_id: user.id) %></td>
         <% end %>
 
         <% if user.employment_records.any? %>

@@ -2,12 +2,14 @@ class ProfilesController < ApplicationController
 
   def new
     @user_id = params[:user_id]
+    @user = User.find(@user_id)
     @profile = Profile.new
   end
 
   def edit
     @user_id = params[:user_id]
     @profile = Profile.find(params[:id])
+    @user = @profile.user
   end
 
   def create

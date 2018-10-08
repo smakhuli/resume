@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get 'resume/index'
 
-  resources :users
-  resources :profiles
+  resources :users do
+    resources :profiles
+  end
+
   resources :employment_records
 
   root 'resume#index'
