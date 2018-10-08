@@ -97,12 +97,14 @@
   <% end %>
 
   <% if @user.employment_records.any? %>
+    <%= link_to 'Add Employment Record', new_employment_record_path(user_id: @user.id) %> |
     <%= link_to 'View Employment Records', employment_records_path(user_id: @user.id) %> |
   <% else %>
     <%= link_to 'Add Employment Record', new_employment_record_path(user_id: @user.id) %> |
   <% end %>
 
   <% if @user.resume_lists.any? %>
+    <%= link_to 'Add Resume List Item', new_resume_list_path(user_id: @user.id) %> |
     <%= link_to 'View Resume Lists', resume_lists_path(user_id: @user.id) %> |
   <% else %>
     <%= link_to 'Add Resume List Item', new_resume_list_path(user_id: @user.id) %> |
