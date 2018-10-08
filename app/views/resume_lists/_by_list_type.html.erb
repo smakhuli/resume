@@ -1,0 +1,18 @@
+<% if ResumeList.my_resume_list_by_type(@user_id, list_type).any? %>
+  <h2><%= "#{title}" %></h2>
+
+  <table>
+    <tr>
+      <th>Description</th>
+      <th></th>
+    </tr>
+
+    <% ResumeList.my_resume_list_by_type(@user_id, list_type).each do |resume_list_item| %>
+      <tr>
+        <td><%= resume_list_item.description %></td>
+        <td><%= link_to 'Edit', edit_resume_list_path(resume_list_item, user_id: @user_id) %></td>
+        <td><%= link_to 'Destroy', resume_list_path(resume_list_item, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

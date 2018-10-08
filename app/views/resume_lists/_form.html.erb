@@ -1,0 +1,31 @@
+<%= form_with(model: @resume_list_item, local: true) do |form| %>
+
+  <% if @resume_list_item.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@resume_list_item.errors.count, "error") %> prevented this resume list item from being saved:
+      </h2>
+      <ul>
+        <% @resume_list_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id, value: @user_id %>
+
+  <p>
+    <%= form.label :list_type %><br>
+    <%= form.select :list_type, ResumeList::LIST_TYPES %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_field :description %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

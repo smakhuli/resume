@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_094708) do
+ActiveRecord::Schema.define(version: 2018_10_08_083643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 2018_10_05_094708) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "resume_lists", force: :cascade do |t|
+    t.string "list_type"
+    t.string "description"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_resume_lists_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "middle_name"
@@ -52,4 +61,5 @@ ActiveRecord::Schema.define(version: 2018_10_05_094708) do
   end
 
   add_foreign_key "employment_records", "users"
+  add_foreign_key "resume_lists", "users"
 end

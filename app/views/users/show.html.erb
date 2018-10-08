@@ -40,6 +40,7 @@
   <%= @user.job_description %>
 </p>
 
+<!-- Build Employment Records -->
 <% if @user.employment_records.any? %>
   <h2>Employment History</h2>
 
@@ -72,6 +73,20 @@
   </p>
 <% end %>
 
+<!-- Build Resume Lists -->
+
+<!-- Build Education List -->
+<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Education', list_type: 'Education'} %>
+
+<!-- Build Award List -->
+<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Awards', list_type: 'Award'} %>
+
+<!-- Build Skill List -->
+<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Skills', list_type: 'Skill'} %>
+
+<!-- Build Activities List -->
+<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Activities', list_type: 'Activity'} %>
+
 <p>
   <%= link_to 'Edit User', edit_user_path(@user) %> |
 
@@ -85,6 +100,12 @@
     <%= link_to 'View Employment Records', employment_records_path(user_id: @user.id) %> |
   <% else %>
     <%= link_to 'Add Employment Record', new_employment_record_path(user_id: @user.id) %> |
+  <% end %>
+
+  <% if @user.resume_lists.any? %>
+    <%= link_to 'View Resume Lists', resume_lists_path(user_id: @user.id) %> |
+  <% else %>
+    <%= link_to 'Add Resume List Item', new_resume_list_path(user_id: @user.id) %> |
   <% end %>
 
   <%= link_to 'Back', users_path %>

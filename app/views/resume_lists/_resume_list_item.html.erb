@@ -1,0 +1,11 @@
+<% if ResumeList.my_resume_list_by_type(@user.id, list_type).any? %>
+  <h2><%= "#{title} "%></h2>
+
+  <ul>
+    <% ResumeList.my_resume_list_by_type(@user.id, list_type).each do |resume_list_item| %>
+      <li>
+        <%= "#{resume_list_item.description}" %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
