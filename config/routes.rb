@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :employment_records
   resources :resume_lists
+  resources :references
 
   root 'resume#index'
 end

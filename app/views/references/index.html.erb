@@ -1,0 +1,33 @@
+<h1>References for <%= "#{User.find(@user_id).full_name}" %></h1>
+
+<p>
+  <%= link_to 'New Reference', new_reference_path(user_id: @user_id) %>
+</p>
+
+<% if @references.any? %>
+  <table>
+    <tr>
+      <th>Reference Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th></th>
+    </tr>
+
+    <% @references.each do |reference| %>
+      <tr>
+        <td><%= reference.reference_name %></td>
+        <td><%= reference.email %></td>
+        <td><%= reference.phone %></td>
+
+        <td><%= link_to 'Edit', edit_reference_path(reference, user_id: @user_id) %></td>
+        <td><%= link_to 'Destroy', reference_path(reference, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+<% else %>
+  <p>No References Have been Entered</p>
+<% end %>
+</table>
+
+<p>
+  <%= link_to 'Back', users_path %>
+</p>

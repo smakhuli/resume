@@ -20,7 +20,7 @@
         <td><%= user.first_name %></td>
         <td><%= user.middle_name %></td>
         <td><%= user.last_name %></td>
-        <td><%= user.phone %></td>
+        <td><%= number_to_phone(user.phone, area_code: true) %></td>
         <td><%= user.email %></td>
         <td><%= link_to 'Show', user_path(user) %></td>
         <td><%= link_to 'Edit User', edit_user_path(user) %></td>
@@ -41,6 +41,12 @@
           <td><%= link_to 'View Resume Lists', resume_lists_path(user_id: user.id) %></td>
         <% else %>
           <td><%= link_to 'Add Resume List Item', new_resume_list_path(user_id: user.id) %></td>
+        <% end %>
+
+        <% if user.references.any? %>
+          <td><%= link_to 'View References', references_path(user_id: user.id) %></td>
+        <% else %>
+          <td><%= link_to 'Add Reference', new_reference_path(user_id: user.id) %></td>
         <% end %>
 
         <td><%= link_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>

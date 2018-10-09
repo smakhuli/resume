@@ -2,7 +2,7 @@ class EmploymentRecordsController < ApplicationController
 
   def index
     @user_id = params[:user_id]
-    @employment_records = EmploymentRecord.my_employment_records(@user_id)
+    @employment_records = User.find_by_id(@user_id).employment_records if User.find_by_id(@user_id).present?
   end
 
   def new
