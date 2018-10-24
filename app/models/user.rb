@@ -17,4 +17,26 @@ class User < ApplicationRecord
     self.remove_avatar!
     self.save!
   end
+
+  def destroy_other_resume_info
+    # Delete profile if one exists for user
+    if self.profile.present?
+      self.profile.destroy
+    end
+
+    # Delete employement records if any exist for user
+    self.employment_records.each do |employment_record|
+      employment_record.destroy
+    end
+
+    # Delete resume lists if any exist for user
+    self.resume_lists.each do |resume_list|
+      resume_list.destroy
+    end
+
+    # Delete references if any exist for user
+    self.references.each do |reference|
+      reference.destroy
+    end
+  end
 end
