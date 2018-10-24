@@ -33,6 +33,13 @@
   <br/>
   <strong>Email:</strong>
   <%= @user.email %>
+
+  <% if @user.skype_name.present? %>
+    <br/>
+    <strong>Skype Name:</strong>
+    <%= @user.skype_name %>
+  <% end %>
+
 </p>
 
 <p>

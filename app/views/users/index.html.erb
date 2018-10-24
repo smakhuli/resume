@@ -12,6 +12,7 @@
       <th>Last Name</th>
       <th>Phone</th>
       <th>Email</th>
+      <th>Skype Name</th>
       <th></th>
     </tr>
 
@@ -22,6 +23,13 @@
         <td><%= user.last_name %></td>
         <td><%= number_to_phone(user.phone, area_code: true) %></td>
         <td><%= user.email %></td>
+
+        <% if user.skype_name.present? %>
+          <td><%= user.skype_name %></td>
+        <% else %>
+          <td>N/A</td>
+        <% end %>
+
         <td><%= link_to 'Show', user_path(user) %></td>
         <td><%= link_to 'Edit User', edit_user_path(user) %></td>
 
