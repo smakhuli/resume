@@ -1,7 +1,7 @@
-<h1>Users</h1>
+<h1>Resumes</h1>
 
 <p>
-  <%= link_to 'New User', new_user_path %>
+  <%= link_to 'New Resume', new_user_path %>
 </p>
 
 <% if @users.any? %>
@@ -30,7 +30,7 @@
           <td>N/A</td>
         <% end %>
 
-        <td><%= link_to 'Show', user_path(user) %></td>
+        <td><%= link_to 'Show Resume', user_path(user) %></td>
         <td><%= link_to 'Edit User', edit_user_path(user) %></td>
 
         <% if user.profile.present? %>

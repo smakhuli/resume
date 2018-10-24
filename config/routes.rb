@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'resume/index'
+  get "/resumes" => "users#index"
 
   resources :users do
     resources :profiles
