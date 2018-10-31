@@ -5,6 +5,7 @@ jQuery ->
   $('.toggle-employment-records').click (event) ->
     event.preventDefault()
     $('.employment-records').toggle()
+#    $ console.log "GOT HERE"
 
   $('.toggle-education').click (event) ->
     event.preventDefault()
