@@ -48,74 +48,101 @@
 </p>
 
 <!-- Display Employment Records -->
+
 <% if @user.employment_records.any? %>
-  <h2>Employment History</h2>
+    <%= link_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records" %>
+    <div class="employment-records">
+      <h2>Employment History</h2>
+      <p>
+        <% @user.employment_records.each do |employment_record| %>
+        <h3>
+          <strong>Employer:</strong>
+          <%= employment_record.employer_name %>
+        </h3>
 
-  <p>
-    <% @user.employment_records.each do |employment_record| %>
-      <h3>
-        <strong>Employer:</strong>
-        <%= employment_record.employer_name %>
-      </h3>
+        <strong>Start Date:</strong>
+        <%= employment_record.start_date.strftime("%m-%d-%Y") %>
+        <br/>
 
-      <strong>Start Date:</strong>
-      <%= employment_record.start_date.strftime("%m-%d-%Y") %>
-      <br/>
+        <strong>End Date:</strong>
+        <% if employment_record.end_date.present? %>
+          <%= employment_record.end_date.strftime("%m-%d-%Y") %>
+        <% else %>
+          Still Employed
+        <% end %>
+        <br/>
 
-      <strong>End Date:</strong>
-      <% if employment_record.end_date.present? %>
-        <%= employment_record.end_date.strftime("%m-%d-%Y") %>
-      <% else %>
-        Still Employed
+        <strong>Job Title:</strong>
+        <%= employment_record.job_title %>
+        <br/>
+
+        <strong>Job Description:</strong>
+        <%= employment_record.job_description %>
       <% end %>
-      <br/>
-
-      <strong>Job Title:</strong>
-      <%= employment_record.job_title %>
-      <br/>
-
-      <strong>Job Description:</strong>
-      <%= employment_record.job_description %>
-    <% end %>
-  </p>
+      </p>
+    </div>
+    <br/>
 <% end %>
 
 <!-- Display Resume Lists -->
 
 <!-- Display Education List -->
-<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Education', list_type: 'Education'} %>
+<br/>
+<%= link_to 'Show/Hide Education Section', "#", class: "toggle-education" %>
+
+<div class="education">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Education', list_type: 'Education'} %>
+</div>
 
 <!-- Display Award List -->
-<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Awards', list_type: 'Award'} %>
+<br/>
+<%= link_to 'Show/Hide Awards Section', "#", class: "toggle-awards" %>
+
+<div class="awards">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Awards', list_type: 'Award'} %>
+</div>
 
 <!-- Display Skill List -->
-<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Skills', list_type: 'Skill'} %>
+<br/>
+<%= link_to 'Show/Hide Skills Section', "#", class: "toggle-skills" %>
+
+<div class="skills">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Skills', list_type: 'Skill'} %>
+</div>
 
 <!-- Display Activities List -->
-<%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Activities', list_type: 'Activity'} %>
+<br/>
+<%= link_to 'Show/Hide Activities Section', "#", class: "toggle-activities" %>
+
+<div class="activities">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Activities', list_type: 'Activity'} %>
+</div>
 
 <!-- Display References -->
 <% if @user.references.any? %>
-  <h2>References</h2>
+  <br/>
+  <%= link_to 'Show/Hide References Section', "#", class: "toggle-references" %>
+  <div class="references">
+    <h2>References</h2>
+    <p>
+      <% @user.references.each do |reference| %>
+        <h3>
+          <%= reference.reference_name %>
+        </h3>
 
-  <p>
-    <% @user.references.each do |reference| %>
-      <h3>
-        <%= reference.reference_name %>
-      </h3>
+        <strong>Email:</strong>
+        <%= reference.email %>
+        <br/>
 
-      <strong>Email:</strong>
-      <%= reference.email %>
-      <br/>
+        <strong>Phone:</strong>
+        <%= number_to_phone(reference.phone, area_code: true) %>
+        <br/>
 
-      <strong>Phone:</strong>
-      <%= number_to_phone(reference.phone, area_code: true) %>
-      <br/>
-
-      <strong>Description:</strong>
-      <%= reference.description %>
-    <% end %>
-  </p>
+        <strong>Description:</strong>
+        <%= reference.description %>
+      <% end %>
+    </p>
+  </div>
 <% end %>
 
 <p>

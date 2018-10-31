@@ -72,3 +72,4 @@ gem 'mini_magick'
 
 gem 'figaro'
 gem 'fog-aws'
+gem 'jquery-rails'
