@@ -87,32 +87,40 @@
 <!-- Display Resume Lists -->
 
 <!-- Display Education List -->
-<br/>
-<%= link_to 'Show/Hide Education Section', "#", class: "toggle-education" %>
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Education').any? %>
+  <br/>
+  <%= link_to 'Show/Hide Education Section', "#", class: "toggle-education" %>
+<% end %>
 
 <div class="education">
   <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Education', list_type: 'Education'} %>
 </div>
 
 <!-- Display Award List -->
-<br/>
-<%= link_to 'Show/Hide Awards Section', "#", class: "toggle-awards" %>
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Award').any? %>
+  <br/>
+  <%= link_to 'Show/Hide Awards Section', "#", class: "toggle-awards" %>
+<% end %>
 
 <div class="awards">
   <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Awards', list_type: 'Award'} %>
 </div>
 
 <!-- Display Skill List -->
-<br/>
-<%= link_to 'Show/Hide Skills Section', "#", class: "toggle-skills" %>
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Skill').any? %>
+  <br/>
+  <%= link_to 'Show/Hide Skills Section', "#", class: "toggle-skills" %>
+<% end %>
 
 <div class="skills">
   <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Skills', list_type: 'Skill'} %>
 </div>
 
 <!-- Display Activities List -->
-<br/>
-<%= link_to 'Show/Hide Activities Section', "#", class: "toggle-activities" %>
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Activity').any? %>
+  <br/>
+  <%= link_to 'Show/Hide Activities Section', "#", class: "toggle-activities" %>
+<% end %>
 
 <div class="activities">
   <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Activities', list_type: 'Activity'} %>
