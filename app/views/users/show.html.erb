@@ -44,7 +44,7 @@
 
 <p>
   <strong>Objective:</strong>
-  <%= @user.job_description %>
+  <%= @user.job_description.html_safe %>
 </p>
 
 <!-- Display Employment Records -->
@@ -69,7 +69,6 @@
         <br/>
 
         <strong>Job Description:</strong>
-        <br/>
         <br/>
         <%= employment_record.job_description.html_safe %>
       <% end %>
