@@ -140,11 +140,13 @@
         <%= number_to_phone(reference.phone, area_code: true) %>
         <br/>
 
-        <strong>Description:</strong>
-        <%= reference.description %>
+        <br/>
+        <%= reference.description.html_safe %>
       <% end %>
     </p>
   </div>
+<% else %>
+  <h2>References available upon request.</h2>
 <% end %>
 
 <p>
