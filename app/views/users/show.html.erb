@@ -50,8 +50,8 @@
 <!-- Display Employment Records -->
 
 <% if @user.employment_records.any? %>
-    <%= link_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records" %>
-    <div class="employment-records">
+    <%= button_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records toggle-button" %>
+      <div class="employment-records">
       <h2>Employment History</h2>
       <p>
         <% @user.employment_records.order(:sort_order).each do |employment_record| %>
@@ -74,7 +74,6 @@
       <% end %>
       </p>
     </div>
-    <br/>
 <% end %>
 
 <!-- Display Resume Lists -->
@@ -82,7 +81,7 @@
 <!-- Display Education List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Education').any? %>
   <br/>
-  <%= link_to 'Show/Hide Education Section', "#", class: "toggle-education" %>
+  <%= button_to 'Show/Hide Education Section', "#", class: "toggle-education toggle-button" %>
 <% end %>
 
 <div class="education">
@@ -92,7 +91,7 @@
 <!-- Display Award List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Award').any? %>
   <br/>
-  <%= link_to 'Show/Hide Awards Section', "#", class: "toggle-awards" %>
+  <%= button_to 'Show/Hide Awards Section', "#", class: "toggle-awards toggle-button" %>
 <% end %>
 
 <div class="awards">
@@ -102,7 +101,7 @@
 <!-- Display Skill List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Skill').any? %>
   <br/>
-  <%= link_to 'Show/Hide Skills Section', "#", class: "toggle-skills" %>
+  <%= button_to 'Show/Hide Skills Section', "#", class: "toggle-skills toggle-button" %>
 <% end %>
 
 <div class="skills">
@@ -112,7 +111,7 @@
 <!-- Display Activities List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Activity').any? %>
   <br/>
-  <%= link_to 'Show/Hide Activities Section', "#", class: "toggle-activities" %>
+  <%= button_to 'Show/Hide Activities Section', "#", class: "toggle-activities toggle-button" %>
 <% end %>
 
 <div class="activities">
@@ -122,7 +121,7 @@
 <!-- Display References -->
 <% if @user.references.any? %>
   <br/>
-  <%= link_to 'Show/Hide References Section', "#", class: "toggle-references" %>
+  <%= button_to 'Show/Hide References Section', "#", class: "toggle-references toggle-button" %>
   <div class="references">
     <h2>References</h2>
     <p>
