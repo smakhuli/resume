@@ -2,7 +2,7 @@ class EmploymentRecordsController < ApplicationController
 
   def index
     @user_id = params[:user_id]
-    @employment_records = User.find_by_id(@user_id).employment_records if User.find_by_id(@user_id).present?
+    @employment_records = User.find_by_id(@user_id).employment_records.order(:sort_order) if User.find_by_id(@user_id).present?
   end
 
   def new
@@ -48,6 +48,6 @@ class EmploymentRecordsController < ApplicationController
   private
 
   def employment_record_params
-    params.require(:employment_record).permit(:employer_name, :start_date, :end_date, :job_title, :job_description, :user_id)
+    params.require(:employment_record).permit(:employer_name, :start_date, :end_date, :job_title, :job_description, :user_id, :sort_order)
   end
 end

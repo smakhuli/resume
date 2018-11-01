@@ -54,7 +54,7 @@
     <div class="employment-records">
       <h2>Employment History</h2>
       <p>
-        <% @user.employment_records.each do |employment_record| %>
+        <% @user.employment_records.order(:sort_order).each do |employment_record| %>
         <h3>
           <%= employment_record.employer_name %>
         </h3>

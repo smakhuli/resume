@@ -21,6 +21,11 @@
   </p>
 
   <p>
+    <%= form.label :sort_order %><br>
+    <%= form.text_field :sort_order %>
+  </p>
+
+  <p>
     <%= form.label :start_date %><br>
     <%= form.date_select(:start_date, start_year: Date.today.year - 100, end_year: Date.today.year, :order => [:month, :day, :year]) %>
   </p>
