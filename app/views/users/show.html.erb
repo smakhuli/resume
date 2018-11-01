@@ -60,24 +60,19 @@
           <%= employment_record.employer_name %>
         </h3>
 
-        <strong>Start Date:</strong>
-        <%= employment_record.start_date.strftime("%m-%d-%Y") %>
-        <br/>
-
-        <strong>End Date:</strong>
-        <% if employment_record.end_date.present? %>
-          <%= employment_record.end_date.strftime("%m-%d-%Y") %>
-        <% else %>
-          Still Employed
-        <% end %>
+        <strong>Employment Dates:</strong>
+        <%= employment_record.start_date.strftime("%B %Y") %> - <%= employment_record.format_end_date %>
         <br/>
 
         <strong>Job Title:</strong>
         <%= employment_record.job_title %>
         <br/>
+        <br/>
 
         <strong>Job Description:</strong>
-        <%= employment_record.job_description %>
+        <br/>
+        <br/>
+        <%= employment_record.job_description.html_safe %>
       <% end %>
       </p>
     </div>
