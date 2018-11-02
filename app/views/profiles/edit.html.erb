@@ -2,6 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Destroy', user_profile_path(@profile), method: :delete, data: { confirm: 'Are you sure?' } %> |
-
-<%= link_to 'Back', users_path %>
+<%= button_to 'Destroy', user_profile_path(@profile), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button" %>

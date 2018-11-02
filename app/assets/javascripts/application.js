@@ -11,7 +11,7 @@
 // about supported directives.
 //
 // removed //=require turbolinks becuase it was causing the javascript to fail
-//= require rails-ujs
+// require rails-ujs
 //= require activestorage
 //= require jquery
 //= require jquery_ujs

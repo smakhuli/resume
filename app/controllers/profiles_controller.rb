@@ -19,6 +19,7 @@ class ProfilesController < ApplicationController
     if @profile.save
       redirect_to user_path(@user_id)
     else
+      @user = User.find(@user_id)
       render 'new'
     end
   end

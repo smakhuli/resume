@@ -2,6 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Destroy', employment_record_path(@employment_record, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %> |
-
-<%= link_to 'Back', employment_records_path(user_id: @user_id) %>
+<%= button_to 'Destroy', employment_record_path(@employment_record, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button" %>

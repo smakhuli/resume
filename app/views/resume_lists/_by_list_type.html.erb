@@ -10,8 +10,8 @@
     <% ResumeList.my_resume_list_by_type(@user_id, list_type).each do |resume_list_item| %>
       <tr>
         <td><%= resume_list_item.description %></td>
-        <td><%= link_to 'Edit', edit_resume_list_path(resume_list_item, user_id: @user_id) %></td>
-        <td><%= link_to 'Destroy', resume_list_path(resume_list_item, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Edit', edit_resume_list_path(resume_list_item), class: "standard-button nav-button", method: :get, params: { user_id: @user_id } %></td>
+        <td><%= button_to 'Destroy', resume_list_path(resume_list_item), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button", params: { user_id: @user_id } %></td>
       </tr>
     <% end %>
   </table>

@@ -2,6 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Destroy', reference_path(@reference, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %> |
-
-<%= link_to 'Back', references_path(user_id: @user_id) %>
+<%= button_to 'Destroy', reference_path(@reference), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button", params: { user_id: @user_id } %>

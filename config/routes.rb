@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   resources :resume_lists
   resources :references
 
-  root 'resume#index'
+  root "users#index"
 end

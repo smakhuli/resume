@@ -2,6 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Destroy', resume_list_path(@resume_list_item, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %> |
-
-<%= link_to 'Back', resume_lists_path(user_id: @user_id) %>
+<%= button_to 'Destroy', resume_list_path(@resume_list_item), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button", params: { user_id: @user_id } %>

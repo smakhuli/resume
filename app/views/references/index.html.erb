@@ -1,7 +1,7 @@
 <h1>References for <%= "#{User.find(@user_id).full_name}" %></h1>
 
 <p>
-  <%= link_to 'New Reference', new_reference_path(user_id: @user_id) %>
+  <%= button_to 'New Reference', new_reference_path, class: "standard-button nav-button", method: :get, params: { user_id: @user_id } %>
 </p>
 
 <% if @references.any? %>
@@ -19,8 +19,8 @@
         <td><%= reference.email %></td>
         <td><%= reference.phone %></td>
 
-        <td><%= link_to 'Edit', edit_reference_path(reference, user_id: @user_id) %></td>
-        <td><%= link_to 'Destroy', reference_path(reference, user_id: @user_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Edit', edit_reference_path(reference), class: "standard-button nav-button", method: :get, params: { user_id: @user_id } %></td>
+        <td><%= button_to 'Destroy', reference_path(reference), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button", params: { user_id: @user_id } %></td>
       </tr>
     <% end %>
 <% else %>
@@ -29,5 +29,5 @@
 </table>
 
 <p>
-  <%= link_to 'Back', users_path %>
+  <%= button_to 'Back', users_path, class: "standard-button nav-button", method: :get %>
 </p>

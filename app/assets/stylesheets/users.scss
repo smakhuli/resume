@@ -1,8 +1,7 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.toggle-button {
-  //background-color: #d4f1d5;
+.standard-button {
   //border: 2px solid black;
   background-color: #4CAF50;
   color: #fff;
@@ -15,6 +14,10 @@
   cursor: pointer;
 }
 
+.toggle-buttonbutton {
+  background-color: #4CAF50;
+}
+
 .toggle-button:hover {background-color: #3e8e41}
 
 .toggle-button:active {
@@ -22,3 +25,15 @@
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+.nav-button {
+  background-color: #644ac5;
+}
+
+.nav-button:hover {background-color: #161f63}
+
+.alert-button {
+  background-color: #de4040;
+}
+
+.alert-button:hover {background-color: #a53535}

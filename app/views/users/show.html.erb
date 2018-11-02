@@ -50,7 +50,7 @@
 <!-- Display Employment Records -->
 
 <% if @user.employment_records.any? %>
-    <%= button_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records toggle-button" %>
+    <%= button_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records standard-button toggle-button" %>
       <div class="employment-records">
       <h2>Employment History</h2>
       <p>
@@ -81,7 +81,7 @@
 <!-- Display Education List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Education').any? %>
   <br/>
-  <%= button_to 'Show/Hide Education Section', "#", class: "toggle-education toggle-button" %>
+  <%= button_to 'Show/Hide Education Section', "#", class: "toggle-education standard-button toggle-button" %>
 <% end %>
 
 <div class="education">
@@ -91,7 +91,7 @@
 <!-- Display Award List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Award').any? %>
   <br/>
-  <%= button_to 'Show/Hide Awards Section', "#", class: "toggle-awards toggle-button" %>
+  <%= button_to 'Show/Hide Awards Section', "#", class: "toggle-awards standard-button toggle-button" %>
 <% end %>
 
 <div class="awards">
@@ -101,7 +101,7 @@
 <!-- Display Skill List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Skill').any? %>
   <br/>
-  <%= button_to 'Show/Hide Skills Section', "#", class: "toggle-skills toggle-button" %>
+  <%= button_to 'Show/Hide Skills Section', "#", class: "toggle-skills standard-button toggle-button" %>
 <% end %>
 
 <div class="skills">
@@ -111,7 +111,7 @@
 <!-- Display Activities List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Activity').any? %>
   <br/>
-  <%= button_to 'Show/Hide Activities Section', "#", class: "toggle-activities toggle-button" %>
+  <%= button_to 'Show/Hide Activities Section', "#", class: "toggle-activities standard-button toggle-button" %>
 <% end %>
 
 <div class="activities">
@@ -121,7 +121,7 @@
 <!-- Display References -->
 <% if @user.references.any? %>
   <br/>
-  <%= button_to 'Show/Hide References Section', "#", class: "toggle-references toggle-button" %>
+  <%= button_to 'Show/Hide References Section', "#", class: "toggle-references standard-button toggle-button" %>
   <div class="references">
     <h2>References</h2>
     <p>
@@ -147,35 +147,49 @@
   <h2>References available upon request.</h2>
 <% end %>
 
-<p>
-  <%= link_to 'Edit User', edit_user_path(@user) %> |
+<table>
+  <tr>
+    <td><%= button_to 'Edit User', edit_user_path(@user), class: "standard-button nav-button", method: :get %></td>
 
-  <% if @user.profile.present? %>
-    <%= link_to 'Edit Profile', edit_user_profile_path(@user.profile, user_id: @user.id) %> |
-  <% else %>
-    <%= link_to 'Add Profile', new_user_profile_path(user_id: @user.id) %> |
-  <% end %>
+    <td>
+      <% if @user.profile.present? %>
+        <%= button_to 'Edit Profile', edit_user_profile_path(@user.profile, user_id: @user.id), class: "standard-button nav-button", method: :get %>
+      <% else %>
+        <%= button_to 'Add Profile', new_user_profile_path(user_id: @user.id), class: "standard-button nav-button", method: :get %>
+      <% end %>
+    </td>
 
-  <% if @user.employment_records.any? %>
-    <%= link_to 'Add Employment Record', new_employment_record_path(user_id: @user.id) %> |
-    <%= link_to 'Edit Employment Records', employment_records_path(user_id: @user.id) %> |
-  <% else %>
-    <%= link_to 'Add Employment Record', new_employment_record_path(user_id: @user.id) %> |
-  <% end %>
+    <td>
+      <% if @user.employment_records.any? %>
+        <%= button_to 'Edit Employment Records', employment_records_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+      <% else %>
+        <%= button_to 'Add Employment Record', new_employment_record_path(user_id: @user.id), class: "standard-button nav-button", method: :get %>
+      <% end %>
+    </td>
 
-  <% if @user.resume_lists.any? %>
-    <%= link_to 'Add Resume List Item', new_resume_list_path(user_id: @user.id) %> |
-    <%= link_to 'Edit Resume Lists', resume_lists_path(user_id: @user.id) %> |
-  <% else %>
-    <%= link_to 'Add Resume List Item', new_resume_list_path(user_id: @user.id) %> |
-  <% end %>
+    <td>
+      <% if @user.resume_lists.any? %>
+        <%= button_to 'Edit Resume Lists', resume_lists_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+      <% else %>
+        <%= button_to 'Add Resume List Item', new_resume_list_path(user_id: @user.id), class: "standard-button nav-button", method: :get %>
+      <% end %>
+    </td>
 
-  <% if @user.references.any? %>
-    <%= link_to 'Add Reference', new_reference_path(user_id: @user.id) %> |
-    <%= link_to 'Edit References', references_path(user_id: @user.id) %> |
-  <% else %>
-    <%= link_to 'Add Reference', new_reference_path(user_id: @user.id) %> |
-  <% end %>
+    <td>
+      <% if @user.references.any? %>
+        <%= button_to 'Edit References', references_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+      <% else %>
+        <%= button_to 'Add Reference', new_reference_path(user_id: @user.id), class: "standard-button nav-button", method: :get %>
+      <% end %>
+    </td>
 
-  <%= link_to 'Back', users_path %>
-</p>
+    <td>
+      <%= button_to 'Back', users_path, class: "standard-button nav-button", method: :get %>
+    </td>
+  </tr>
+</table>
+
+
+
+
+

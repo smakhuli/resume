@@ -1,63 +1,59 @@
 <h1>Resumes</h1>
 
 <p>
-  <%= link_to 'New Resume', new_user_path %>
+  <%= button_to 'New Resume', new_user_path, class: "standard-button nav-button", method: :get %>
 </p>
 
 <% if @users.any? %>
   <table>
     <tr>
-      <th>First Name</th>
-      <th>Middle Name</th>
-      <th>Last Name</th>
-      <th>Phone</th>
+      <th>Name</th>
+<!--      <th>Phone</th>-->
       <th>Email</th>
-      <th>Skype Name</th>
+<!--      <th>Skype Name</th>-->
       <th></th>
     </tr>
 
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.first_name %></td>
-        <td><%= user.middle_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= number_to_phone(user.phone, area_code: true) %></td>
+        <td><%= user.full_name %></td>
+<!--        <td><%#= number_to_phone(user.phone, area_code: true) %></td>-->
         <td><%= user.email %></td>
 
-        <% if user.skype_name.present? %>
-          <td><%= user.skype_name %></td>
-        <% else %>
-          <td>N/A</td>
-        <% end %>
+        <%# if user.skype_name.present? %>
+<!--          <td><%#= user.skype_name %></td>-->
+        <%# else %>
+<!--          <td>N/A</td>-->
+        <%# end %>
 
-        <td><%= link_to 'Show Resume', user_path(user) %></td>
-        <td><%= link_to 'Edit User', edit_user_path(user) %></td>
+        <td><%= button_to 'View', user_path(user), class: "standard-button nav-button", method: :get %></td>
+        <td><%= button_to 'Edit User', edit_user_path(user), class: "standard-button nav-button", method: :get %></td>
 
         <% if user.profile.present? %>
-          <td><%= link_to 'Edit Profile', edit_user_profile_path(user.profile, user_id: user.id) %></td>
+          <td><%= button_to 'Edit Profile', edit_user_profile_path(user.profile, user_id: user.id), class: "standard-button nav-button", method: :get %></td>
         <% else %>
-          <td><%= link_to 'Add Profile', new_user_profile_path(user_id: user.id) %></td>
+          <td><%= button_to 'Add Profile', new_user_profile_path(user_id: user.id), class: "standard-button nav-button", method: :get %></td>
         <% end %>
 
         <% if user.employment_records.any? %>
-          <td><%= link_to 'Edit Employment Records', employment_records_path(user_id: user.id) %></td>
+          <td><%= button_to 'Edit Employment Records', employment_records_path, class: "standard-button nav-button", method: :get, params: { user_id: user.id } %> </td>
         <% else %>
-          <td><%= link_to 'Add Employment Record', new_employment_record_path(user_id: user.id) %></td>
+          <td><%= button_to 'Add Employment Record', new_employment_record_path, class: "standard-button nav-button", method: :get, params: { user_id: user.id } %></td>
         <% end %>
 
         <% if user.resume_lists.any? %>
-          <td><%= link_to 'Edit Resume Lists', resume_lists_path(user_id: user.id) %></td>
+          <td><%= button_to 'Edit Resume Lists', resume_lists_path, class: "standard-button nav-button", method: :get, params: { user_id: user.id } %></td>
         <% else %>
-          <td><%= link_to 'Add Resume List Item', new_resume_list_path(user_id: user.id) %></td>
+          <td><%= button_to 'Add Resume List Item', new_resume_list_path, class: "standard-button nav-button", method: :get, params: { user_id: user.id } %></td>
         <% end %>
 
         <% if user.references.any? %>
-          <td><%= link_to 'Edit References', references_path(user_id: user.id) %></td>
+          <td><%= button_to 'Edit References', references_path, class: "standard-button nav-button", method: :get, params: { user_id: user.id } %></td>
         <% else %>
-          <td><%= link_to 'Add Reference', new_reference_path(user_id: user.id) %></td>
+          <td><%= button_to 'Add Reference', new_reference_path, class: "standard-button nav-button", method: :get, params: { user_id: user.id } %></td>
         <% end %>
 
-        <td><%= link_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button" %></td>
       </tr>
     <% end %>
   <% else %>
