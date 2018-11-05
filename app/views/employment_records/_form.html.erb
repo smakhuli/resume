@@ -49,7 +49,7 @@
     <table>
       <tr>
         <td><%= form.submit 'Save', class: "standard-button nav-button", method: :post %></td>
-        <td><%= link_to 'Back', users_path, class: "standard-button nav-button", method: :get %></td>
+        <td><%= link_to 'Back', employment_records_path(user_id: @user_id), class: "standard-button nav-button", method: :get %></td>
       </tr>
     </table>
   </p>
