@@ -9,4 +9,9 @@ class ResumeList < ApplicationRecord
   def self.my_resume_list_by_type(user_id, list_type)
     where("user_id = ? and list_type = ?", user_id, list_type)
   end
+
+  def self.my_resume_list(user_id)
+    where("user_id = ?", user_id)
+  end
+
 end

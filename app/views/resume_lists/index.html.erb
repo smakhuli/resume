@@ -5,8 +5,12 @@
 </p>
 
 <!-- Display Education List Items -->
-<% ResumeList::LIST_TYPES.each_with_index do |list_type, index| %>
-  <%= render partial: 'by_list_type', locals:  {title: ResumeList::LIST_TITLES[index], list_type: list_type} %>
+<% if ResumeList.my_resume_list(@user_id).any? %>
+  <% ResumeList::LIST_TYPES.each_with_index do |list_type, index| %>
+    <%= render partial: 'by_list_type', locals:  {title: ResumeList::LIST_TITLES[index], list_type: list_type} %>
+  <% end %>
+<% else %>
+  <p>No Resume List Items Have been Entered</p>
 <% end %>
 
 <p>
