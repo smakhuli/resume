@@ -13,6 +13,4 @@
   <p>No Resume List Items Have been Entered</p>
 <% end %>
 
-<p>
-  <%= button_to 'Back', users_path, class: "standard-button nav-button", method: :get %>
-</p>
+<%= render partial: 'layouts/back_button' %>
