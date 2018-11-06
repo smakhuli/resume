@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :profiles
+    member do
+      get "show_resume"
+    end
   end
 
   resources :employment_records

@@ -1,0 +1,154 @@
+<h3>
+  <%= @user.full_name %>
+</h3>
+
+<% if @user.avatar.present? %>
+  <div>
+    <%= image_tag(@user.avatar.url) %>
+  </div>
+<% end %>
+
+<% if @user.profile.present? %>
+  <p>
+    <%= @user.profile.address1 %>
+
+    <% if @user.profile.address2.present? %>
+      <br/>
+      <%= @user.profile.address2 %>
+    <% end %>
+
+    <br/>
+    <%= @user.profile.city %>, <%= @user.profile.state %>, <%= @user.profile.zip_code %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Phone:</strong>
+  <% if @user.phone.length == 10 %>
+    <%= number_to_phone(@user.phone, area_code: true) %>
+  <% else %>
+    <%= @user.phone %>
+  <% end %>
+
+  <br/>
+  <strong>Email:</strong>
+  <%= @user.email %>
+
+  <% if @user.skype_name.present? %>
+    <br/>
+    <strong>Skype Name:</strong>
+    <%= @user.skype_name %>
+  <% end %>
+
+</p>
+
+<p>
+  <strong>Objective:</strong>
+  <%= @user.job_description.html_safe %>
+</p>
+
+<!-- Display Employment Records -->
+
+<% if @user.employment_records.any? %>
+  <%= button_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records standard-button toggle-button" %>
+  <div class="employment-records">
+    <h2>Employment History</h2>
+    <p>
+      <% @user.employment_records.order(:sort_order).each do |employment_record| %>
+      <h3>
+        <%= employment_record.employer_name %>
+      </h3>
+
+      <strong>Employment Dates:</strong>
+      <%= employment_record.start_date.strftime("%B %Y") %> - <%= employment_record.format_end_date %>
+      <br/>
+
+      <strong>Job Title:</strong>
+      <%= employment_record.job_title %>
+      <br/>
+      <br/>
+
+      <strong>Job Description:</strong>
+      <br/>
+      <%= employment_record.job_description.html_safe %>
+    <% end %>
+    </p>
+  </div>
+<% end %>
+
+<!-- Display Resume Lists -->
+
+<!-- Display Education List -->
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Education').any? %>
+  <br/>
+  <%= button_to 'Show/Hide Education Section', "#", class: "toggle-education standard-button toggle-button" %>
+<% end %>
+
+<div class="education">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Education', list_type: 'Education'} %>
+</div>
+
+<!-- Display Award List -->
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Award').any? %>
+  <br/>
+  <%= button_to 'Show/Hide Awards Section', "#", class: "toggle-awards standard-button toggle-button" %>
+<% end %>
+
+<div class="awards">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Awards', list_type: 'Award'} %>
+</div>
+
+<!-- Display Skill List -->
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Skill').any? %>
+  <br/>
+  <%= button_to 'Show/Hide Skills Section', "#", class: "toggle-skills standard-button toggle-button" %>
+<% end %>
+
+<div class="skills">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Skills', list_type: 'Skill'} %>
+</div>
+
+<!-- Display Activities List -->
+<% if ResumeList.my_resume_list_by_type(@user.id, 'Activity').any? %>
+  <br/>
+  <%= button_to 'Show/Hide Activities Section', "#", class: "toggle-activities standard-button toggle-button" %>
+<% end %>
+
+<div class="activities">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Activities', list_type: 'Activity'} %>
+</div>
+
+<!-- Display References -->
+<% if @user.references.any? %>
+  <br/>
+  <%= button_to 'Show/Hide References Section', "#", class: "toggle-references standard-button toggle-button" %>
+  <div class="references">
+    <h2>References</h2>
+    <p>
+      <% @user.references.each do |reference| %>
+      <h3>
+        <%= reference.reference_name %>
+      </h3>
+
+      <strong>Email:</strong>
+      <%= reference.email %>
+      <br/>
+
+      <strong>Phone:</strong>
+      <%= number_to_phone(reference.phone, area_code: true) %>
+      <br/>
+
+      <br/>
+      <%= reference.description.html_safe %>
+    <% end %>
+    </p>
+  </div>
+<% else %>
+  <h2>References available upon request.</h2>
+<% end %>
+
+
+
+
+
+

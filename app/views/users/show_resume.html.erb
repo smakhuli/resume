@@ -1,0 +1,7 @@
+<%= render partial: 'display_resume'  %>
+
+<% if Rails.env.development? %>
+  <td>
+    <%= button_to 'Back', users_path, class: "standard-button nav-button", method: :get %>
+  </td>
+<% end %>

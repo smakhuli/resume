@@ -9,7 +9,7 @@
     <tr>
       <th>Name</th>
 <!--      <th>Phone</th>-->
-      <th>Email</th>
+<!--      <th>Email</th>-->
 <!--      <th>Skype Name</th>-->
       <th></th>
     </tr>
@@ -18,7 +18,7 @@
       <tr>
         <td><%= user.full_name %></td>
 <!--        <td><%#= number_to_phone(user.phone, area_code: true) %></td>-->
-        <td><%= user.email %></td>
+<!--        <td><%#= user.email %></td>-->
 
         <%# if user.skype_name.present? %>
 <!--          <td><%#= user.skype_name %></td>-->
@@ -26,7 +26,8 @@
 <!--          <td>N/A</td>-->
         <%# end %>
 
-        <td><%= button_to 'View', user_path(user), class: "standard-button nav-button", method: :get %></td>
+        <td><%= button_to 'View Only', show_resume_user_path(user), class: "standard-button nav-button", method: :get %></td>
+        <td><%= button_to 'View/Edit', user_path(user), class: "standard-button nav-button", method: :get %></td>
         <td><%= button_to 'Edit User', edit_user_path(user), class: "standard-button nav-button", method: :get %></td>
 
         <% if user.profile.present? %>
