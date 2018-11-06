@@ -54,12 +54,12 @@
 <% if @user.employment_records.any? %>
   <%= button_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records standard-button toggle-button" %>
   <div class="employment-records">
-    <h2>Employment History</h2>
+    <h1>Employment History</h1>
     <p>
       <% @user.employment_records.order(:sort_order).each do |employment_record| %>
-      <h3>
+      <h2>
         <%= employment_record.employer_name %>
-      </h3>
+      </h2>
 
       <strong>Employment Dates:</strong>
       <%= employment_record.start_date.strftime("%B %Y") %> - <%= employment_record.format_end_date %>
