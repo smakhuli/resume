@@ -1,7 +1,9 @@
-<%= render partial: 'display_resume'  %>
+<div class="bg-color">
+  <%= render partial: 'display_resume'  %>
 
-<% if Rails.env.development? %>
-  <td>
-    <%= button_to 'Back', users_path, class: "standard-button nav-button", method: :get %>
-  </td>
-<% end %>
+  <% if Rails.env.development? %>
+    <td>
+      <%= button_to 'Back', users_path, class: "standard-button nav-button", method: :get %>
+    </td>
+  <% end %>
+</div>
