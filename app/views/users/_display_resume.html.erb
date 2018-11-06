@@ -90,6 +90,16 @@
   <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Education', list_type: 'Education'} %>
 </div>
 
+<!-- Display On The Job Experience -->
+<% if ResumeList.my_resume_list_by_type(@user.id, 'OJT').any? %>
+  <br/>
+  <%= button_to 'Show/Hide OJT Section', "#", class: "toggle-ojt standard-button toggle-button" %>
+<% end %>
+
+<div class="ojt">
+  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'On The Job Experience', list_type: 'OJT'} %>
+</div>
+
 <!-- Display Award List -->
 <% if ResumeList.my_resume_list_by_type(@user.id, 'Award').any? %>
   <br/>

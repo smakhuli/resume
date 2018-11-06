@@ -1,6 +1,6 @@
 class ResumeList < ApplicationRecord
-  LIST_TYPES = ['Activity', 'Award', 'Education', 'Skill']
-  LIST_TITLES = ['Activities', 'Awards', 'Education', 'Skills']
+  LIST_TYPES = ['Activity', 'Award', 'Education', 'Skill', 'OJT']
+  LIST_TITLES = ['Activities', 'Awards', 'Education', 'Skills', 'On The Job Experience']
 
   belongs_to :user
 

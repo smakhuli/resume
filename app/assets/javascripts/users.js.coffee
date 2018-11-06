@@ -11,6 +11,10 @@ jQuery ->
     event.preventDefault()
     $('.education').toggle()
 
+  $('.toggle-ojt').click (event) ->
+    event.preventDefault()
+    $('.ojt').toggle()
+
   $('.toggle-awards').click (event) ->
     event.preventDefault()
     $('.awards').toggle()
