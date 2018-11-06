@@ -1,3 +1,4 @@
+<div class="center-text">
 <h3>
   <%= @user.full_name %>
 </h3>
@@ -41,9 +42,10 @@
   <% end %>
 
 </p>
+</div>
 
 <p>
-  <strong>Objective:</strong>
+  <h3>Objective:</h3>
   <%= @user.job_description.html_safe %>
 </p>
 
