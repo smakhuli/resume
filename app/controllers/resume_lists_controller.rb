@@ -18,7 +18,7 @@ class ResumeListsController < ApplicationController
     @resume_list_item = ResumeList.new(resume_list_params)
 
     if @resume_list_item.save
-      redirect_to user_path(@user_id)
+      redirect_to resume_lists_path(user_id: @user_id)
     else
       render 'new'
     end

@@ -20,7 +20,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.new(reference_params)
 
     if @reference.save
-      redirect_to user_path(@user_id)
+      redirect_to references_path(user_id: @user_id)
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.find(params[:id])
 
     if @reference.update(reference_params)
-      redirect_to user_path(@user_id)
+      redirect_to references_path(user_id: @user_id)
     else
       render 'edit'
     end

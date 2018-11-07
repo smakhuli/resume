@@ -20,7 +20,7 @@ class EmploymentRecordsController < ApplicationController
     @employment_record = EmploymentRecord.new(employment_record_params)
 
     if @employment_record.save
-      redirect_to user_path(@user_id)
+      redirect_to employment_records_path(user_id: @user_id)
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class EmploymentRecordsController < ApplicationController
     @employment_record = EmploymentRecord.find(params[:id])
 
     if @employment_record.update(employment_record_params)
-      redirect_to user_path(@user_id)
+      redirect_to employment_records_path(user_id: @user_id)
     else
       render 'edit'
     end
