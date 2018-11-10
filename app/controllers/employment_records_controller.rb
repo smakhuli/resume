@@ -20,7 +20,7 @@ class EmploymentRecordsController < ApplicationController
     @employment_record = EmploymentRecord.new(employment_record_params)
 
     if @employment_record.save
-      redirect_to employment_records_path(user_id: @user_id)
+      redirect_to employment_records_path(user_id: @user_id), notice: 'Employement Record was successfully created'
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class EmploymentRecordsController < ApplicationController
     @employment_record = EmploymentRecord.find(params[:id])
 
     if @employment_record.update(employment_record_params)
-      redirect_to employment_records_path(user_id: @user_id)
+      redirect_to employment_records_path(user_id: @user_id), notice: 'Employement Record was successfully updated'
     else
       render 'edit'
     end
@@ -42,7 +42,7 @@ class EmploymentRecordsController < ApplicationController
     @employment_record = EmploymentRecord.find(params[:id])
     @employment_record.destroy
 
-    redirect_to employment_records_path(user_id: @user_id)
+    redirect_to employment_records_path(user_id: @user_id), alert: 'Employement Record was deleted'
   end
 
   private

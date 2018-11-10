@@ -18,7 +18,7 @@ class ResumeListsController < ApplicationController
     @resume_list_item = ResumeList.new(resume_list_params)
 
     if @resume_list_item.save
-      redirect_to resume_lists_path(user_id: @user_id)
+      redirect_to resume_lists_path(user_id: @user_id), notice: 'Resume list was successfully created'
     else
       render 'new'
     end
@@ -29,7 +29,7 @@ class ResumeListsController < ApplicationController
     @resume_list_item = ResumeList.find(params[:id])
 
     if @resume_list_item.update(resume_list_params)
-      redirect_to resume_lists_path(user_id: @user_id)
+      redirect_to resume_lists_path(user_id: @user_id), notice: 'Resume list was successfully updated'
     else
       render 'edit'
     end
@@ -40,7 +40,7 @@ class ResumeListsController < ApplicationController
     @resume_list_item = ResumeList.find(params[:id])
     @resume_list_item.destroy
 
-    redirect_to resume_lists_path(user_id: @user_id)
+    redirect_to resume_lists_path(user_id: @user_id), alert: 'Resume list was deleted'
   end
 
   private

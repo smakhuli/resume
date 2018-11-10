@@ -20,7 +20,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.new(reference_params)
 
     if @reference.save
-      redirect_to references_path(user_id: @user_id)
+      redirect_to references_path(user_id: @user_id), notice: 'Reference was successfully created'
     else
       render 'new'
     end
@@ -31,7 +31,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.find(params[:id])
 
     if @reference.update(reference_params)
-      redirect_to references_path(user_id: @user_id)
+      redirect_to references_path(user_id: @user_id), notice: 'Reference was successfully updated'
     else
       render 'edit'
     end
@@ -42,7 +42,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.find(params[:id])
     @reference.destroy
 
-    redirect_to references_path(user_id: @user_id)
+    redirect_to references_path(user_id: @user_id), alert: 'Reference was deleted'
   end
 
   private

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user
+      redirect_to @user, notice: 'User was successfully created'
     else
       render 'new'
     end
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       @user.remove_avatar_image if params[:user][:remove_avatar] == '1' && @user.avatar.url.present?
 
-      redirect_to @user
+      redirect_to @user, notice: 'User was successfully updated'
     else
       render 'edit'
     end
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
     @user.destroy
 
-    redirect_to users_path
+    redirect_to users_path, alert: 'User was deleted'
   end
 
   def show_resume

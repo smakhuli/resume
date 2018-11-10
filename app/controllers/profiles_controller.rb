@@ -17,7 +17,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
 
     if @profile.save
-      redirect_to user_path(@user_id)
+      redirect_to user_path(@user_id), notice: 'Profile was successfully created'
     else
       @user = User.find(@user_id)
       render 'new'
@@ -29,7 +29,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
 
     if @profile.update(profile_params)
-      redirect_to user_path(@user_id)
+      redirect_to user_path(@user_id), notice: 'Profile was successfully updated'
     else
       render 'edit'
     end
@@ -39,7 +39,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
     @profile.destroy
 
-    redirect_to users_path
+    redirect_to users_path, alert: 'Profile was deleted'
   end
 
   private
