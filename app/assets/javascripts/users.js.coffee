@@ -30,3 +30,11 @@ jQuery ->
   $('.toggle-references').click (event) ->
     event.preventDefault()
     $('.references').toggle()
+
+  $ ->
+    setTimeout (->
+      $('.notice').slideUp 500
+      $('.alert').slideUp 500
+      return
+    ), 5000
+    return
