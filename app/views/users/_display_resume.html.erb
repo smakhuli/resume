@@ -137,7 +137,7 @@
   <div class="references">
     <h2>References</h2>
     <p>
-      <% @user.references.each do |reference| %>
+      <% @user.references.order(:sort_order).each do |reference| %>
       <h3>
         <%= reference.reference_name %>
       </h3>
