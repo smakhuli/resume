@@ -1,6 +1,7 @@
 class ResumeList < ApplicationRecord
-  LIST_TYPES = ['Activity', 'Award', 'Education', 'Skill', 'OJT']
-  LIST_TITLES = ['Activities', 'Awards', 'Education', 'Skills', 'On The Job Experience']
+  LIST_TYPES = ['Education', 'OJT', 'Award', 'Skill', 'Activity']
+  LIST_DIV_HEADERS = ['education', 'ojt', 'awards', 'skills', 'activities']
+  LIST_TITLES = ['Education', 'On The Job Experience', 'Awards', 'Skills', 'Activities']
 
   belongs_to :user
 

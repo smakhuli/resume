@@ -80,55 +80,18 @@
 
 <!-- Display Resume Lists -->
 
-<!-- Display Education List -->
-<% if ResumeList.my_resume_list_by_type(@user.id, 'Education').any? %>
-  <br/>
-  <%= button_to 'Show/Hide Education Section', "#", class: "toggle-education standard-button toggle-button" %>
+<% ResumeList::LIST_TYPES.each_with_index do |list_type, index| %>
+
+  <% if ResumeList.my_resume_list_by_type(@user.id, list_type).any? %>
+    <br/>
+    <%= button_to "Show/Hide #{ResumeList::LIST_TITLES[index]} Section", "#", class: "toggle-#{ResumeList::LIST_DIV_HEADERS[index]} standard-button toggle-button" %>
+  <% end %>
+
+  <div class="<%= "#{ResumeList::LIST_DIV_HEADERS[index]}" %>">
+    <%= render partial: 'resume_lists/resume_list_item', locals:  {title: ResumeList::LIST_TITLES[index], list_type: list_type} %>
+  </div>
+
 <% end %>
-
-<div class="education">
-  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Education', list_type: 'Education'} %>
-</div>
-
-<!-- Display On The Job Experience -->
-<% if ResumeList.my_resume_list_by_type(@user.id, 'OJT').any? %>
-  <br/>
-  <%= button_to 'Show/Hide OJT Section', "#", class: "toggle-ojt standard-button toggle-button" %>
-<% end %>
-
-<div class="ojt">
-  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'On The Job Experience', list_type: 'OJT'} %>
-</div>
-
-<!-- Display Award List -->
-<% if ResumeList.my_resume_list_by_type(@user.id, 'Award').any? %>
-  <br/>
-  <%= button_to 'Show/Hide Awards Section', "#", class: "toggle-awards standard-button toggle-button" %>
-<% end %>
-
-<div class="awards">
-  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Awards', list_type: 'Award'} %>
-</div>
-
-<!-- Display Skill List -->
-<% if ResumeList.my_resume_list_by_type(@user.id, 'Skill').any? %>
-  <br/>
-  <%= button_to 'Show/Hide Skills Section', "#", class: "toggle-skills standard-button toggle-button" %>
-<% end %>
-
-<div class="skills">
-  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Skills', list_type: 'Skill'} %>
-</div>
-
-<!-- Display Activities List -->
-<% if ResumeList.my_resume_list_by_type(@user.id, 'Activity').any? %>
-  <br/>
-  <%= button_to 'Show/Hide Activities Section', "#", class: "toggle-activities standard-button toggle-button" %>
-<% end %>
-
-<div class="activities">
-  <%= render partial: 'resume_lists/resume_list_item', locals:  {title: 'Activities', list_type: 'Activity'} %>
-</div>
 
 <!-- Display References -->
 <% if @user.references.any? %>
