@@ -2,7 +2,7 @@ class ReferencesController < ApplicationController
 
   def index
     @user_id = params[:user_id]
-    @references = User.find_by_id(@user_id).references if User.find_by_id(@user_id).present?
+    @references = User.find_by_id(@user_id).references.order(:sort_order) if User.find_by_id(@user_id).present?
   end
 
   def new
@@ -48,7 +48,7 @@ class ReferencesController < ApplicationController
   private
 
   def reference_params
-    params.require(:reference).permit(:reference_name, :email, :phone, :description, :user_id)
+    params.require(:reference).permit(:reference_name, :email, :phone, :description, :user_id, :sort_order)
   end
 
 end

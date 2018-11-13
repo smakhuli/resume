@@ -8,6 +8,7 @@
   <table>
     <tr>
       <th>Reference Name</th>
+      <th>Sort Order</th>
       <th>Email</th>
       <th>Phone</th>
       <th></th>
@@ -16,6 +17,7 @@
     <% @references.each do |reference| %>
       <tr>
         <td><%= reference.reference_name %></td>
+        <td class="center-text"><%= reference.sort_order %></td>
         <td><%= reference.email %></td>
         <td><%= reference.phone %></td>
 
