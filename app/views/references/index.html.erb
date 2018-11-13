@@ -19,7 +19,12 @@
         <td><%= reference.reference_name %></td>
         <td class="center-text"><%= reference.sort_order %></td>
         <td><%= reference.email %></td>
-        <td><%= reference.phone %></td>
+
+        <% if reference.phone.length == 10 %>
+          <td><%= number_to_phone(reference.phone, area_code: true) %><td>
+        <% else %>
+          <td><%= reference.phone %><td>
+        <% end %>
 
         <td><%= button_to 'Edit', edit_reference_path(reference), class: "standard-button nav-button", method: :get, params: { user_id: @user_id } %></td>
         <td><%= button_to 'Destroy', reference_path(reference), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button", params: { user_id: @user_id } %></td>
