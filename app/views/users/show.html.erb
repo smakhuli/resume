@@ -1,6 +1,8 @@
 <div class="bg-color">
 
-<%= button_to 'Generate PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>
+<% if Rails.env.development? %>
+  <%= button_to 'Generate PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>
+<% end %>
 
 <%= render partial: 'display_resume'  %>
 
