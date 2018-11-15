@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :profiles
     member do
       get "show_resume"
+      get "generate_pdf"
     end
   end
 

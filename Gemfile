@@ -76,3 +76,4 @@ gem 'jquery-rails'
 # gem 'trix'
 # TODO https://github.com/maclover7/trix/issues/54
 gem 'trix-rails', require: 'trix'
+gem 'prawn', '~>2.2.0'

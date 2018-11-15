@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  require "prawn"
+
   def index
     @users = User.all
   end
@@ -51,6 +53,21 @@ class UsersController < ApplicationController
   def show_resume
     # raise params.inspect
     @user = User.find(params[:id])
+  end
+
+  def generate_pdf
+    @user = User.find(params[:id])
+
+    pdf_text = @user.build_pdf_text
+
+    pdf = Prawn::Document.new
+    pdf.text pdf_text
+    pdf.render_file "resume.pdf"
+
+    send_data pdf.render,
+              filename: "resume.pdf",
+              type: 'application/pdf',
+              disposition: 'inline'
   end
 
   private

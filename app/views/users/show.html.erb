@@ -1,5 +1,7 @@
 <div class="bg-color">
 
+<%= button_to 'Generate PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>
+
 <%= render partial: 'display_resume'  %>
 
 <table>

@@ -39,4 +39,23 @@ class User < ApplicationRecord
       reference.destroy
     end
   end
+
+  def build_pdf_text
+    pdf_text = self.full_name
+    pdf_text += "\n\n"
+
+    if self.profile.present?
+      pdf_text += self.profile.address1
+      pdf_text += "\n"
+
+      if self.profile.address2.present?
+        pdf_text += self.profile.address2
+        pdf_text += "\n"
+      end
+
+      pdf_text += "#{self.profile.city}, #{self.profile.state}, #{self.profile.zip_code}"
+    end
+
+    pdf_text
+  end
 end
