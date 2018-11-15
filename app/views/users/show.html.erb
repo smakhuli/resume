@@ -1,7 +1,5 @@
 <div class="bg-color">
 
-<%= button_to 'Generate Resume as PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>
-
 <%= render partial: 'display_resume'  %>
 
 <table>
@@ -38,6 +36,10 @@
       <% else %>
         <%= button_to 'Add Reference', new_reference_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
       <% end %>
+    </td>
+
+    <td>
+      <%= button_to 'Generate Resume as PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>
     </td>
 
     <td>

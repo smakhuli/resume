@@ -1,11 +1,15 @@
 <div class="bg-color">
-  <%= button_to 'Generate Resume as PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>
-
   <%= render partial: 'display_resume'  %>
 
-  <% if Rails.env.development? %>
-    <td>
-      <%= render partial: 'layouts/back_button' %>
-    </td>
-  <% end %>
+  <table>
+    <tr>
+      <td><%= button_to 'Generate Resume as PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %></td>
+
+      <% if Rails.env.development? %>
+        <td><%= render partial: 'layouts/back_button' %></td>
+      <% end %>
+
+    </tr>
+  </table>
+
 </div>
