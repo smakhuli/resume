@@ -57,23 +57,23 @@
     <h1>Employment History</h1>
     <p>
       <% @user.employment_records.order(:sort_order).each do |employment_record| %>
-      <h2>
-        <%= employment_record.employer_name %>
-      </h2>
+        <h2>
+          <%= employment_record.employer_name %>
+        </h2>
 
-      <strong>Employment Dates:</strong>
-      <%= employment_record.start_date.strftime("%B %Y") %> - <%= employment_record.format_end_date %>
-      <br/>
+        <strong>Employment Dates:</strong>
+        <%= employment_record.start_date.strftime("%B %Y") %> - <%= employment_record.format_end_date %>
+        <br/>
 
-      <strong>Job Title:</strong>
-      <%= employment_record.job_title %>
-      <br/>
-      <br/>
+        <strong>Job Title:</strong>
+        <%= employment_record.job_title %>
+        <br/>
+        <br/>
 
-      <strong>Job Description:</strong>
-      <br/>
-      <%= employment_record.job_description.html_safe %>
-    <% end %>
+        <strong>Job Description:</strong>
+        <br/>
+        <%= employment_record.job_description.html_safe %>
+      <% end %>
     </p>
   </div>
 <% end %>

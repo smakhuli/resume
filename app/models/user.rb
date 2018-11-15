@@ -40,22 +40,113 @@ class User < ApplicationRecord
     end
   end
 
-  def build_pdf_text
-    pdf_text = self.full_name
-    pdf_text += "\n\n"
+  def build_resume_pdf
+    pdf = Prawn::Document.new
+
+    pdf.font_size 20
+    pdf.text self.full_name, align: :center, style: :bold
+    pdf.font_size 12
+    pdf.text "\n"
 
     if self.profile.present?
-      pdf_text += self.profile.address1
-      pdf_text += "\n"
+      pdf.text self.profile.address1, align: :center
+      # pdf.text "\n"
 
       if self.profile.address2.present?
-        pdf_text += self.profile.address2
-        pdf_text += "\n"
+        pdf.text self.profile.address2, align: :center
+        # pdf.text "\n"
       end
 
-      pdf_text += "#{self.profile.city}, #{self.profile.state}, #{self.profile.zip_code}"
+      pdf.text "#{self.profile.city}, #{self.profile.state}, #{self.profile.zip_code}", align: :center
+      pdf.text "\n"
     end
 
-    pdf_text
+    if self.phone.length == 10
+      pdf.text "#{self.format_phone(self.phone)}", align: :center
+    else
+      pdf.text "#{self.phone}", align: :center
+    end
+
+    pdf.text self.email, align: :center
+    pdf.text "\n"
+
+    pdf.font_size 16
+    pdf.text "Objective", style: :bold
+    pdf.font_size 12
+    pdf.text self.sanitize_text(self.job_description)
+    pdf.text "\n"
+
+    # Display Employment History
+    pdf.font_size 20
+    pdf.text "Employment History", style: :bold
+    pdf.text "\n"
+    self.employment_records.order(:sort_order).each do |employment_record|
+      pdf.font_size 16
+      pdf.text employment_record.employer_name, style: :bold
+      pdf.font_size 12
+      pdf.text employment_record.start_date.strftime("%B %Y") + " - " + employment_record.format_end_date
+      pdf.text employment_record.job_title
+      pdf.text "\n"
+
+      pdf.text "Job Description", style: :bold
+      pdf.text self.sanitize_text(employment_record.job_description)
+      pdf.text "\n"
+    end
+
+    # Display Resume List
+    ResumeList::LIST_TYPES.each_with_index do |list_type, index|
+
+      if ResumeList.my_resume_list_by_type(self.id, list_type).any?
+        pdf.text "\n"
+
+        pdf.font_size 16
+        pdf.text "#{ResumeList::LIST_TITLES[index]}", style: :bold
+        pdf.font_size 12
+
+        ResumeList.my_resume_list_by_type(self.id, list_type).each do |resume_list_item|
+          pdf.text "- #{resume_list_item.description}"
+        end
+      end
+    end
+    pdf.text "\n"
+
+    # Display References
+    if self.references.any?
+      pdf.font_size 20
+      pdf.text "References", style: :bold
+      pdf.text "\n"
+
+      self.references.order(:sort_order).each do |reference|
+        pdf.font_size 16
+        pdf.text reference.reference_name, style: :bold
+        pdf.font_size 12
+
+        pdf.text reference.email
+
+        if reference.phone.length == 10
+          pdf.text "#{self.format_phone(reference.phone)}"
+        else
+          pdf.text "#{reference.phone}"
+        end
+
+        pdf.text self.sanitize_text(reference.description)
+        pdf.text "\n"
+      end
+    else
+      pdf.font_size 16
+      pdf.text "References available upon request."
+    end
+
+    # pdf.render_file "resume.pdf"
+
+    pdf
+  end
+
+  def format_phone(phone_number)
+    "(" + phone_number[0..2] + ") " + phone_number[3..5] + "-" + phone_number[6..9]
+  end
+
+  def sanitize_text(text)
+    ActionView::Base.full_sanitizer.sanitize(text)
   end
 end
