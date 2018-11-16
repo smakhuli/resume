@@ -22,16 +22,15 @@
 
   <p>
     <%= form.label :description %><br>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, class: "text-input" %>
   </p>
+  <br>
 
-  <p>
-    <table>
-      <tr>
-        <td><%= form.submit 'Save', class: "standard-button nav-button", method: :post %></td>
-        <td><%= link_to 'Back', resume_lists_path(user_id: @user_id), class: "standard-button nav-button", method: :get %></td>
-      </tr>
-    </table>
-  </p>
+  <table>
+    <tr>
+      <td><%= form.submit 'Save', class: "standard-button nav-button", method: :post %></td>
+      <td><%= link_to 'Back', resume_lists_path(user_id: @user_id), class: "standard-button nav-button", method: :get %></td>
+    </tr>
+  </table>
 
 <% end %>
