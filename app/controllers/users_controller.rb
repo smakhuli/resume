@@ -25,7 +25,6 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
-    # render plain: params[:user].inspect
   end
 
   def update
@@ -51,7 +50,6 @@ class UsersController < ApplicationController
   end
 
   def show_resume
-    # raise params.inspect
     @user = User.find(params[:id])
   end
 
