@@ -50,11 +50,9 @@ class User < ApplicationRecord
 
     if self.profile.present?
       pdf.text self.profile.address1, align: :center
-      # pdf.text "\n"
 
       if self.profile.address2.present?
         pdf.text self.profile.address2, align: :center
-        # pdf.text "\n"
       end
 
       pdf.text "#{self.profile.city}, #{self.profile.state}, #{self.profile.zip_code}", align: :center
@@ -73,8 +71,15 @@ class User < ApplicationRecord
     pdf.font_size 16
     pdf.text "Objective", style: :bold
     pdf.font_size 12
-    pdf.text self.sanitize_text(self.job_description)
     pdf.text "\n"
+
+    sections = self.split_text(self.job_description)
+    sections.each do |section|
+      unless section.blank?
+        pdf.text self.sanitize_text(section)
+        pdf.text "\n"
+      end
+    end
 
     # Display Employment History
     pdf.font_size 20
@@ -89,7 +94,14 @@ class User < ApplicationRecord
       pdf.text "\n"
 
       pdf.text "Job Description", style: :bold
-      pdf.text self.sanitize_text(employment_record.job_description)
+      sections = self.split_text(employment_record.job_description)
+      sections.each do |section|
+        unless section.blank?
+          pdf.text self.sanitize_text(section)
+          pdf.text "\n"
+        end
+      end
+
       pdf.text "\n"
     end
 
@@ -129,8 +141,14 @@ class User < ApplicationRecord
           pdf.text "#{reference.phone}"
         end
 
-        pdf.text self.sanitize_text(reference.description)
         pdf.text "\n"
+        sections = self.split_text(reference.description)
+        sections.each do |section|
+          unless section.blank?
+            pdf.text self.sanitize_text(section)
+            pdf.text "\n"
+          end
+        end
       end
     else
       pdf.font_size 16
@@ -144,6 +162,10 @@ class User < ApplicationRecord
 
   def format_phone(phone_number)
     "(" + phone_number[0..2] + ") " + phone_number[3..5] + "-" + phone_number[6..9]
+  end
+
+  def split_text(text)
+    text.split("<br>")
   end
 
   def sanitize_text(text)
