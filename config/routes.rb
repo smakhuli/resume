@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :employment_records
   resources :resume_lists
   resources :references
+  resources :messages
 
   root "users#index"
 end

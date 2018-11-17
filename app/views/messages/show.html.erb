@@ -1,0 +1,17 @@
+<p>
+  <strong>Message From: </strong><%= @message.name %>
+</p>
+
+<p>
+  <strong>Email: </strong>
+    <%= @message.email %>
+</p>
+
+<p>
+  <h3>Message:</h3>
+  <%= @message.body.html_safe %>
+</p>
+
+<p>
+  <%= button_to 'Back', messages_path, class: "standard-button toggle-button", method: :get %>
+</p>

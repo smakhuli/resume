@@ -61,3 +61,11 @@
     <p>No Users Have been Entered</p>
   <% end %>
 </table>
+
+<br>
+<table>
+  <tr>
+  <td><%= button_to 'Contact Me', new_message_path, class: "standard-button toggle-button", method: :get %></td>
+  <td><%= button_to 'Messages', messages_path, class: "standard-button toggle-button", method: :get %></td>
+  </tr>
+</table>

@@ -1,0 +1,27 @@
+<h1>Messages</h1>
+
+<% if @messages.any? %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Message (First 40 characters)</th>
+      <th></th>
+    </tr>
+
+    <% @messages.each do |message| %>
+      <tr>
+        <td><%= message.name %></td>
+        <td><%= message.email %></td>
+        <td><%= message.body[0..40].html_safe %> ....<td>
+
+        <td><%= button_to 'View', message_path(message), class: "standard-button nav-button", method: :get %></td>
+        <td><%= button_to 'Destroy', message_path(message), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button" %></td>
+      </tr>
+    <% end %>
+<% else %>
+  <p>No Message Have been Sent</p>
+<% end %>
+</table>
+
+<%= render partial: 'layouts/back_button' %>
