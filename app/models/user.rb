@@ -1,10 +1,14 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
   has_one :profile
   has_many :employment_records
   has_many :resume_lists
   has_many :references
 
-  validates :first_name, :last_name, :email, :job_description, presence: true
+  validates :first_name, :last_name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   mount_uploader :avatar, AvatarUploader
@@ -57,27 +61,37 @@ class User < ApplicationRecord
 
       pdf.text "#{self.profile.city}, #{self.profile.state}, #{self.profile.zip_code}", align: :center
       pdf.text "\n"
-    end
 
-    if self.phone.length == 10
-      pdf.text "#{self.format_phone(self.phone)}", align: :center
-    else
-      pdf.text "#{self.phone}", align: :center
+      if self.profile.phone.present?
+        if self.profile.phone.length == 10
+          pdf.text "#{self.format_phone(self.profile.phone)}", align: :center
+        else
+          pdf.text "#{self.profile.phone}", align: :center
+        end
+      end
     end
 
     pdf.text self.email, align: :center
-    pdf.text "\n"
 
-    pdf.font_size 16
-    pdf.text "Objective", style: :bold
-    pdf.font_size 12
-    pdf.text "\n"
+    if self.profile.present? && self.profile.skype_name.present?
+      pdf.text "Skype Name: #{self.profile.skype_name}", align: :center
+      pdf.text "\n"
+    else
+      pdf.text "\n"
+    end
 
-    sections = self.split_text(self.job_description)
-    sections.each do |section|
-      unless section.blank?
-        pdf.text self.sanitize_text(section)
-        pdf.text "\n"
+    if self.profile.present? && self.profile.job_description.present?
+      pdf.font_size 16
+      pdf.text "Objective", style: :bold
+      pdf.font_size 12
+      pdf.text "\n"
+
+      sections = self.split_text(self.profile.job_description)
+      sections.each do |section|
+        unless section.blank?
+          pdf.text self.sanitize_text(section)
+          pdf.text "\n"
+        end
       end
     end
 
@@ -170,5 +184,13 @@ class User < ApplicationRecord
 
   def sanitize_text(text)
     ActionView::Base.full_sanitizer.sanitize(text)
+  end
+
+  def is_owner?(user)
+    self == user
+  end
+
+  def is_app_owner?
+    self.email == 'srmakhuli@gmail.com' || self.email == 'roger.makhuli@gmail.com'
   end
 end

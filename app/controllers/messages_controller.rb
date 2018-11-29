@@ -1,7 +1,15 @@
 class MessagesController < ApplicationController
 
   def index
-    @messages = Message.all
+    if user_signed_in?
+      if current_user.is_app_owner?
+        @messages = Message.all
+      else
+        redirect_to users_path, alert: 'You do not have the authority to access messages'
+      end
+    else
+      redirect_to users_path, alert: 'You do not have the authority to access messages'
+    end
   end
 
   def new

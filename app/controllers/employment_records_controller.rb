@@ -2,7 +2,17 @@ class EmploymentRecordsController < ApplicationController
 
   def index
     @user_id = params[:user_id]
-    @employment_records = User.find_by_id(@user_id).employment_records.order(:sort_order) if User.find_by_id(@user_id).present?
+
+    if user_signed_in?
+      if current_user.id == @user_id.to_i || current_user.is_app_owner?
+        @employment_records = User.find_by_id(@user_id).employment_records.order(:sort_order) if User.find_by_id(@user_id).present?
+      else
+        redirect_to users_path, alert: 'You do not have authority to edit these employment records'
+      end
+    else
+      redirect_to users_path, alert: 'You do not have authority to edit these employment records'
+    end
+
   end
 
   def new
@@ -12,7 +22,17 @@ class EmploymentRecordsController < ApplicationController
 
   def edit
     @user_id = params[:user_id]
-    @employment_record = EmploymentRecord.find(params[:id])
+
+    if user_signed_in?
+      if current_user.id == @user_id.to_i || current_user.is_app_owner?
+        @employment_record = EmploymentRecord.find(params[:id])
+      else
+        redirect_to users_path, alert: 'You do not have authority to edit this employment record'
+      end
+    else
+      redirect_to users_path, alert: 'You do not have authority to edit this employment record'
+    end
+
   end
 
   def create

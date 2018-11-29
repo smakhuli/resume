@@ -4,39 +4,41 @@
 
 <table>
   <tr>
-    <td><%= button_to 'Edit User', edit_user_path(@user), class: "standard-button nav-button", method: :get %></td>
+    <% if current_user.present? && (current_user.is_owner?(@user) || current_user.is_app_owner?) %>
+      <td><%= button_to 'Edit User', edit_user_path(@user), class: "standard-button nav-button", method: :get %></td>
 
-    <td>
-      <% if @user.profile.present? %>
-        <%= button_to 'Edit Profile', edit_user_profile_path(@user.profile), class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% else %>
-        <%= button_to 'Add Profile', new_user_profile_path(user_id: @user.id), class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% end %>
-    </td>
+      <td>
+        <% if @user.profile.present? %>
+          <%= button_to 'Edit Profile', edit_user_profile_path(@user.profile, user_id: @user.id), class: "standard-button nav-button", method: :get %>
+        <% else %>
+          <%= button_to 'Add Profile', new_user_profile_path(user_id: @user.id), class: "standard-button nav-button", method: :get %>
+        <% end %>
+      </td>
 
-    <td>
-      <% if @user.employment_records.any? %>
-        <%= button_to 'Edit Employment Records', employment_records_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% else %>
-        <%= button_to 'Add Employment Record', new_employment_record_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% end %>
-    </td>
+      <td>
+        <% if @user.employment_records.any? %>
+          <%= button_to 'Edit Employment Records', employment_records_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+        <% else %>
+          <%= button_to 'Add Employment Record', new_employment_record_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+        <% end %>
+      </td>
 
-    <td>
-      <% if @user.resume_lists.any? %>
-        <%= button_to 'Edit Resume Lists', resume_lists_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% else %>
-        <%= button_to 'Add Resume List Item', new_resume_list_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% end %>
-    </td>
+      <td>
+        <% if @user.resume_lists.any? %>
+          <%= button_to 'Edit Resume Lists', resume_lists_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+        <% else %>
+          <%= button_to 'Add Resume List Item', new_resume_list_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+        <% end %>
+      </td>
 
-    <td>
-      <% if @user.references.any? %>
-        <%= button_to 'Edit References', references_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% else %>
-        <%= button_to 'Add Reference', new_reference_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
-      <% end %>
-    </td>
+      <td>
+        <% if @user.references.any? %>
+          <%= button_to 'Edit References', references_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+        <% else %>
+          <%= button_to 'Add Reference', new_reference_path, class: "standard-button nav-button", method: :get, params: { user_id: @user.id } %>
+        <% end %>
+      </td>
+    <% end %>
 
     <td>
       <%= button_to 'Generate Resume as PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>

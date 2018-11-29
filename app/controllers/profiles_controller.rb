@@ -10,6 +10,15 @@ class ProfilesController < ApplicationController
     @user_id = params[:user_id]
     @profile = Profile.find(params[:id])
     @user = @profile.user
+
+    if user_signed_in?
+      unless @profile.is_owned_by?(current_user) || current_user.is_app_owner?
+        redirect_to users_path, alert: 'You do not have authority to edit this profile'
+      end
+    else
+      redirect_to users_path, alert: 'You do not have authority to edit this profile'
+    end
+
   end
 
   def create
@@ -45,7 +54,7 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:address1, :address2, :city, :state, :zip_code, :user_id)
+    params.require(:profile).permit(:address1, :address2, :city, :state, :zip_code, :phone, :skype_name, :job_description, :user_id)
   end
 end
 

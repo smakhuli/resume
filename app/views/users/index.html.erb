@@ -1,32 +1,19 @@
 <h1>Resumes</h1>
 
-<p>
-  <%= button_to 'New User', new_user_path, class: "standard-button nav-button", method: :get %>
-</p>
-
 <% if @users.any? %>
   <table>
     <tr>
       <th>Name</th>
-<!--      <th>Phone</th>-->
-<!--      <th>Email</th>-->
-<!--      <th>Skype Name</th>-->
       <th></th>
     </tr>
 
     <% @users.each do |user| %>
       <tr>
         <td><%= user.full_name %></td>
-<!--        <td><%#= number_to_phone(user.phone, area_code: true) %></td>-->
-<!--        <td><%#= user.email %></td>-->
-
-        <%# if user.skype_name.present? %>
-<!--          <td><%#= user.skype_name %></td>-->
-        <%# else %>
-<!--          <td>N/A</td>-->
-        <%# end %>
 
         <td><%= button_to 'View Only', show_resume_user_path(user), class: "standard-button nav-button", method: :get %></td>
+
+        <% if user_signed_in? && (current_user.is_owner?(user) || current_user.is_app_owner?) %>
         <td><%= button_to 'View/Edit', user_path(user), class: "standard-button nav-button", method: :get %></td>
         <td><%= button_to 'Edit User', edit_user_path(user), class: "standard-button nav-button", method: :get %></td>
 
@@ -56,6 +43,7 @@
 
         <td><%= button_to 'Destroy', user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "standard-button alert-button" %></td>
       </tr>
+      <% end %>
     <% end %>
   <% else %>
     <p>No Users Have been Entered</p>
@@ -65,7 +53,13 @@
 <br>
 <table>
   <tr>
-  <td><%= button_to 'Contact Me', new_message_path, class: "standard-button toggle-button", method: :get %></td>
-  <td><%= button_to 'Messages', messages_path, class: "standard-button toggle-button", method: :get %></td>
+    <td><%= button_to 'Contact Me', new_message_path, class: "standard-button toggle-button", method: :get %></td>
+    <% if user_signed_in? %>
+      <% if current_user.is_app_owner? %>
+        <td><%= button_to 'Messages', messages_path, class: "standard-button toggle-button", method: :get %></td>
+      <% end %>
+      <td><%= link_to 'Sign Out', destroy_user_session_path, class: "standard-button alert-button" %></td>
+    <% end %>
+    <%#= button_to 'New User', new_user_path, class: "standard-button nav-button", method: :get %>
   </tr>
 </table>

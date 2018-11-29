@@ -24,30 +24,34 @@
 <% end %>
 
 <p>
-  <strong>Phone:</strong>
-  <% if @user.phone.length == 10 %>
-    <%= number_to_phone(@user.phone, area_code: true) %>
-  <% else %>
-    <%= @user.phone %>
+  <% if @user.profile.present? && @user.profile.phone.present? %>
+    <strong>Phone:</strong>
+    <% if @user.phone.length == 10 %>
+      <%= number_to_phone(@user.profile.phone, area_code: true) %>
+    <% else %>
+      <%= @user.profile.phone %>
+    <% end %>
   <% end %>
 
   <br/>
   <strong>Email:</strong>
   <%= @user.email %>
 
-  <% if @user.skype_name.present? %>
+  <% if @user.profile.present? && @user.profile.skype_name.present? %>
     <br/>
     <strong>Skype Name:</strong>
-    <%= @user.skype_name %>
+    <%= @user.profile.skype_name %>
   <% end %>
 
 </p>
 </div>
 
-<p>
-  <h3>Objective:</h3>
-  <%= @user.job_description.html_safe %>
-</p>
+<% if @user.profile.present? && @user.profile.job_description.present? %>
+  <p>
+    <h3>Objective:</h3>
+    <%= @user.profile.job_description.html_safe %>
+  </p>
+<% end %>
 
 <!-- Display Employment Records -->
 

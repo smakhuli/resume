@@ -2,7 +2,17 @@ class ReferencesController < ApplicationController
 
   def index
     @user_id = params[:user_id]
-    @references = User.find_by_id(@user_id).references.order(:sort_order) if User.find_by_id(@user_id).present?
+
+    if user_signed_in?
+      if current_user.id == @user_id.to_i || current_user.is_app_owner?
+        @references = User.find_by_id(@user_id).references.order(:sort_order) if User.find_by_id(@user_id).present?
+      else
+        redirect_to users_path, alert: 'You do not have authority to edit these references'
+      end
+    else
+      redirect_to users_path, alert: 'You do not have authority to edit these references'
+    end
+
   end
 
   def new
@@ -12,7 +22,17 @@ class ReferencesController < ApplicationController
 
   def edit
     @user_id = params[:user_id]
-    @reference = Reference.find(params[:id])
+
+    if user_signed_in?
+      if current_user.id == @user_id.to_i || current_user.is_app_owner?
+        @reference = Reference.find(params[:id])
+      else
+        redirect_to users_path, alert: 'You do not have authority to edit this reference'
+      end
+    else
+      redirect_to users_path, alert: 'You do not have authority to edit this reference'
+    end
+
   end
 
   def create

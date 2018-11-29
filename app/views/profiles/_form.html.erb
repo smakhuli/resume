@@ -16,6 +16,24 @@
   <%= form.hidden_field :user_id, value: @user_id %>
 
   <p>
+    <%= form.label :phone %><br>
+    <%= form.text_field :phone %>
+  </p>
+  <br>
+
+  <p>
+    <%= form.label :skype_name %><br>
+    <%= form.text_field :skype_name %>
+  </p>
+  <br>
+
+  <p>
+    <%= form.label :job_description %><br>
+    <%= form.trix_editor :job_description %>
+  </p>
+  <br>
+
+  <p>
     <%= form.label :address1 %><br>
     <%= form.text_field :address1, class: "text-input" %>
   </p>

@@ -1,8 +1,13 @@
 class UsersController < ApplicationController
   require "prawn"
+  # before_action :authenticate_user!
 
   def index
-    @users = User.all
+    if user_signed_in?
+      @users = User.all
+    else
+      redirect_to new_user_session_url, alert: 'Please sign up or sign in to access Resumes'
+    end
   end
 
   def new
@@ -11,6 +16,14 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+
+    if user_signed_in?
+      unless current_user.is_owner?(@user) || current_user.is_app_owner?
+        redirect_to users_path, alert: 'You do not have authority to edit this user'
+      end
+    else
+      redirect_to users_path, alert: 'You do not have authority to edit this user'
+    end
   end
 
   def show
@@ -69,6 +82,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :middle_name, :last_name, :phone, :email, :skype_name, :job_description, :avatar)
+    params.require(:user).permit(:first_name, :middle_name, :last_name, :email, :avatar)
   end
 end
