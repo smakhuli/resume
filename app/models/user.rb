@@ -196,4 +196,11 @@ class User < ApplicationRecord
   def is_admin?
     self.role == 'admin' || self.email == 'srmakhuli@gmail.com' || self.email == 'roger.makhuli@gmail.com'
   end
+
+  def get_users
+    # Put the signed in user at the beginning (position 0) of the user (resume) array
+    my_resume = User.find(self.id)
+    other_resumes = User.all.reject { |user| user == my_resume}
+    other_resumes.insert(0, my_resume)
+  end
 end

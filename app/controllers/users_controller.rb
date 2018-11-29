@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     if user_signed_in?
-      @users = User.all
+      @users = current_user.get_users
     else
       redirect_to new_user_session_url, alert: 'Please sign up or sign in to access Resumes'
     end
