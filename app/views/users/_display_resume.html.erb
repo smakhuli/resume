@@ -26,7 +26,7 @@
 <p>
   <% if @user.profile.present? && @user.profile.phone.present? %>
     <strong>Phone:</strong>
-    <% if @user.phone.length == 10 %>
+    <% if @user.profile.phone.length == 10 %>
       <%= number_to_phone(@user.profile.phone, area_code: true) %>
     <% else %>
       <%= @user.profile.phone %>
