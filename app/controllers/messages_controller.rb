@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
 
   def index
     if user_signed_in?
-      if current_user.is_app_owner?
+      if current_user.is_admin?
         @messages = Message.all
       else
         redirect_to users_path, alert: 'You do not have the authority to access messages'

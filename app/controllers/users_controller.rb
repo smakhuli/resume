@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if user_signed_in?
-      unless current_user.is_owner?(@user) || current_user.is_app_owner?
+      unless current_user.is_owner?(@user) || current_user.is_admin?
         redirect_to users_path, alert: 'You do not have authority to edit this user'
       end
     else
@@ -82,6 +82,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :middle_name, :last_name, :email, :avatar)
+    params.require(:user).permit(:first_name, :middle_name, :last_name, :email, :role, :avatar)
   end
 end

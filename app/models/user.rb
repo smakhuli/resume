@@ -3,6 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  USER_ROLES = ['admin', 'user']
+
   has_one :profile
   has_many :employment_records
   has_many :resume_lists
@@ -190,7 +193,7 @@ class User < ApplicationRecord
     self == user
   end
 
-  def is_app_owner?
-    self.email == 'srmakhuli@gmail.com' || self.email == 'roger.makhuli@gmail.com'
+  def is_admin?
+    self.role == 'admin' || self.email == 'srmakhuli@gmail.com' || self.email == 'roger.makhuli@gmail.com'
   end
 end

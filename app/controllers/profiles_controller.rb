@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
     @user = @profile.user
 
     if user_signed_in?
-      unless @profile.is_owned_by?(current_user) || current_user.is_app_owner?
+      unless @profile.is_owned_by?(current_user) || current_user.is_admin?
         redirect_to users_path, alert: 'You do not have authority to edit this profile'
       end
     else

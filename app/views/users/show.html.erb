@@ -4,7 +4,7 @@
 
 <table>
   <tr>
-    <% if current_user.present? && (current_user.is_owner?(@user) || current_user.is_app_owner?) %>
+    <% if current_user.present? && (current_user.is_owner?(@user) || current_user.is_admin?) %>
       <td><%= button_to 'Edit User', edit_user_path(@user), class: "standard-button nav-button", method: :get %></td>
 
       <td>

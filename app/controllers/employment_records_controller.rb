@@ -4,7 +4,7 @@ class EmploymentRecordsController < ApplicationController
     @user_id = params[:user_id]
 
     if user_signed_in?
-      if current_user.id == @user_id.to_i || current_user.is_app_owner?
+      if current_user.id == @user_id.to_i || current_user.is_admin?
         @employment_records = User.find_by_id(@user_id).employment_records.order(:sort_order) if User.find_by_id(@user_id).present?
       else
         redirect_to users_path, alert: 'You do not have authority to edit these employment records'
@@ -24,7 +24,7 @@ class EmploymentRecordsController < ApplicationController
     @user_id = params[:user_id]
 
     if user_signed_in?
-      if current_user.id == @user_id.to_i || current_user.is_app_owner?
+      if current_user.id == @user_id.to_i || current_user.is_admin?
         @employment_record = EmploymentRecord.find(params[:id])
       else
         redirect_to users_path, alert: 'You do not have authority to edit this employment record'

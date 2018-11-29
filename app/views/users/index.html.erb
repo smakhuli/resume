@@ -13,7 +13,7 @@
 
         <td><%= button_to 'View Only', show_resume_user_path(user), class: "standard-button nav-button", method: :get %></td>
 
-        <% if user_signed_in? && (current_user.is_owner?(user) || current_user.is_app_owner?) %>
+        <% if user_signed_in? && (current_user.is_owner?(user) || current_user.is_admin?) %>
         <td><%= button_to 'View/Edit', user_path(user), class: "standard-button nav-button", method: :get %></td>
         <td><%= button_to 'Edit User', edit_user_path(user), class: "standard-button nav-button", method: :get %></td>
 
@@ -55,7 +55,7 @@
   <tr>
     <td><%= button_to 'Contact Me', new_message_path, class: "standard-button toggle-button", method: :get %></td>
     <% if user_signed_in? %>
-      <% if current_user.is_app_owner? %>
+      <% if current_user.is_admin? %>
         <td><%= button_to 'Messages', messages_path, class: "standard-button toggle-button", method: :get %></td>
       <% end %>
       <td><%= link_to 'Sign Out', destroy_user_session_path, class: "standard-button alert-button" %></td>
