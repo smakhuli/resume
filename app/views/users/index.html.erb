@@ -54,6 +54,7 @@
 <table>
   <tr>
     <td><%= button_to 'Contact Me', new_message_path, class: "standard-button toggle-button", method: :get %></td>
+    <td><%= link_to 'User Guide', "https://s3.amazonaws.com/samiresume/Resume+Builder+User+Guide.pdf", class: "standard-button toggle-button", target: :_blank %></td>
     <% if user_signed_in? %>
       <% if current_user.is_admin? %>
         <td><%= button_to 'Messages', messages_path, class: "standard-button toggle-button", method: :get %></td>
