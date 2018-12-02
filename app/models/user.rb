@@ -99,27 +99,29 @@ class User < ApplicationRecord
     end
 
     # Display Employment History
-    pdf.font_size 20
-    pdf.text "Employment History", style: :bold
-    pdf.text "\n"
-    self.employment_records.order(:sort_order).each do |employment_record|
-      pdf.font_size 16
-      pdf.text employment_record.employer_name, style: :bold
-      pdf.font_size 12
-      pdf.text employment_record.start_date.strftime("%B %Y") + " - " + employment_record.format_end_date
-      pdf.text employment_record.job_title
+    if self.employment_records.any?
+      pdf.font_size 20
+      pdf.text "Employment History", style: :bold
       pdf.text "\n"
+      self.employment_records.order(:sort_order).each do |employment_record|
+        pdf.font_size 16
+        pdf.text employment_record.employer_name, style: :bold
+        pdf.font_size 12
+        pdf.text employment_record.start_date.strftime("%B %Y") + " - " + employment_record.format_end_date
+        pdf.text employment_record.job_title
+        pdf.text "\n"
 
-      pdf.text "Job Description", style: :bold
-      sections = self.split_text(employment_record.job_description)
-      sections.each do |section|
-        unless section.blank?
-          pdf.text self.sanitize_text(section)
-          pdf.text "\n"
+        pdf.text "Job Description", style: :bold
+        sections = self.split_text(employment_record.job_description)
+        sections.each do |section|
+          unless section.blank?
+            pdf.text self.sanitize_text(section)
+            pdf.text "\n"
+          end
         end
-      end
 
-      pdf.text "\n"
+        pdf.text "\n"
+      end
     end
 
     # Display Resume List
