@@ -200,7 +200,17 @@ class User < ApplicationRecord
   def get_users
     # Put the signed in user at the beginning (position 0) of the user (resume) array
     my_resume = User.find(self.id)
-    other_resumes = User.all.reject { |user| user == my_resume}
+
+    if self.is_admin?
+      other_resumes = User.all.reject { |user| user == my_resume}
+    else
+      other_resumes = User.public.reject { |user| user == my_resume}
+    end
+
     other_resumes.insert(0, my_resume)
+  end
+
+  def self.public
+    where('make_private = ?', false)
   end
 end
