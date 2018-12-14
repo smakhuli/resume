@@ -27,6 +27,7 @@
         <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
           <td><%= link_to "Sign up", new_registration_path(resource_name), class: "standard-button nav-button" %></td>
         <% end -%>
+        <td><%= link_to 'User Guide', "https://s3.amazonaws.com/samiresume/Resume+Builder+User+Guide.pdf", class: "standard-button toggle-button", target: :_blank %></td>
       </tr>
     </table>
   </div>
