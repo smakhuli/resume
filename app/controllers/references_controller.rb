@@ -3,12 +3,8 @@ class ReferencesController < ApplicationController
   def index
     @user_id = params[:user_id]
 
-    if user_signed_in?
-      if current_user.id == @user_id.to_i || current_user.is_admin?
+    if user_signed_in? && current_user.has_access?(@user_id.to_i)
         @references = User.find_by_id(@user_id).references.order(:sort_order) if User.find_by_id(@user_id).present?
-      else
-        redirect_to users_path, alert: 'You do not have authority to edit these references'
-      end
     else
       redirect_to users_path, alert: 'You do not have authority to edit these references'
     end
@@ -23,12 +19,8 @@ class ReferencesController < ApplicationController
   def edit
     @user_id = params[:user_id]
 
-    if user_signed_in?
-      if current_user.id == @user_id.to_i || current_user.is_admin?
+    if user_signed_in? && current_user.has_access?(@user_id.to_i)
         @reference = Reference.find(params[:id])
-      else
-        redirect_to users_path, alert: 'You do not have authority to edit this reference'
-      end
     else
       redirect_to users_path, alert: 'You do not have authority to edit this reference'
     end

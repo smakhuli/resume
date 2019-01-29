@@ -215,4 +215,8 @@ class User < ApplicationRecord
   def self.public
     where('make_private = ?', false)
   end
+
+  def has_access?(user_id)
+    self.id == user_id || self.is_admin?
+  end
 end
