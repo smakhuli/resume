@@ -98,18 +98,14 @@ class User < ApplicationRecord
   end
 
   def build_profile_section2(pdf)
-    self.display_sype_name(pdf)
-
-    display_job_description(pdf) if self.profile.job_description.present?
-  end
-
-  def display_sype_name(pdf)
     if self.profile.skype_name.present?
       pdf.text "Skype Name: #{self.profile.skype_name}", align: :center
       pdf.text "\n"
     else
       pdf.text "\n"
     end
+
+    display_job_description(pdf) if self.profile.job_description.present?
   end
 
   def display_job_description(pdf)
