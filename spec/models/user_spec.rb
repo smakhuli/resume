@@ -43,4 +43,36 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  it "will format 10 digit phone number" do
+    expect(@user1.format_phone('5301234567')).to eq '(530) 123-4567'
+  end
+
+  it "checks for ownership" do
+    expect(@user1.is_owner?(@user1)).to eq true
+    user2 = create(:user)
+    expect(@user1.is_owner?(user2)).to eq false
+  end
+
+  it "checks if user is admin" do
+    user = build(:user)
+    expect(user.is_admin?).to eq false
+    user2 = build(:user, role: 'admin')
+    expect(user2.is_admin?).to eq true
+  end
+
+  it "puts signed in user's resume at front of queue" do
+    user1 = build(:user)
+    user1.save!
+
+    user2 = build(:user)
+    user2.save!
+
+    user3 = build(:user)
+    user3.save!
+
+    users = user3.get_users
+    expect(user3).to eq users.first
+  end
+
 end
