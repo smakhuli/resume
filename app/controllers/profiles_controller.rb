@@ -11,11 +11,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
     @user = @profile.user
 
-    if user_signed_in?
-      unless @profile.is_owned_by?(current_user) || current_user.is_admin?
-        redirect_to users_path, alert: 'You do not have authority to edit this profile'
-      end
-    else
+    unless user_signed_in? && (@profile.is_owned_by?(current_user) || current_user.is_admin?)
       redirect_to users_path, alert: 'You do not have authority to edit this profile'
     end
 

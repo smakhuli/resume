@@ -17,11 +17,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
 
-    if user_signed_in?
-      unless current_user.is_owner?(@user) || current_user.is_admin?
-        redirect_to users_path, alert: 'You do not have authority to edit this user'
-      end
-    else
+    unless user_signed_in? && (current_user.is_owner?(@user) || current_user.is_admin?)
       redirect_to users_path, alert: 'You do not have authority to edit this user'
     end
   end

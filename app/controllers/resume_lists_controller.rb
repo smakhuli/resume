@@ -2,11 +2,7 @@ class ResumeListsController < ApplicationController
   def index
     @user_id = params[:user_id]
 
-    if user_signed_in?
-      unless current_user.id == @user_id.to_i || current_user.is_admin?
-        redirect_to users_path, alert: 'You do not have authority to edit these resume lists'
-      end
-    else
+    unless user_signed_in? && current_user.has_access?(@user_id.to_i)
       redirect_to users_path, alert: 'You do not have authority to edit these resume lists'
     end
 
@@ -20,16 +16,11 @@ class ResumeListsController < ApplicationController
   def edit
     @user_id = params[:user_id]
 
-    if user_signed_in?
-      if current_user.id == @user_id.to_i || current_user.is_admin?
-        @resume_list_item = ResumeList.find(params[:id])
-      else
-        redirect_to users_path, alert: 'You do not have authority to edit this resume list item'
-      end
+    if user_signed_in? && current_user.has_access?(@user_id.to_i)
+      @resume_list_item = ResumeList.find(params[:id])
     else
       redirect_to users_path, alert: 'You do not have authority to edit this resume list item'
     end
-
 
   end
 
