@@ -55,35 +55,57 @@ class User < ApplicationRecord
     pdf.font_size 12
     pdf.text "\n"
 
-    if self.profile.present?
-      pdf.text self.profile.address1, align: :center
-
-      if self.profile.address2.present?
-        pdf.text self.profile.address2, align: :center
-      end
-
-      pdf.text "#{self.profile.city}, #{self.profile.state}, #{self.profile.zip_code}", align: :center
-      pdf.text "\n"
-
-      if self.profile.phone.present?
-        if self.profile.phone.length == 10
-          pdf.text "#{self.format_phone(self.profile.phone)}", align: :center
-        else
-          pdf.text "#{self.profile.phone}", align: :center
-        end
-      end
-    end
+    self.build_profile_section1(pdf) if self.profile.present?
 
     pdf.text self.email, align: :center
 
-    if self.profile.present? && self.profile.skype_name.present?
+    self.build_profile_section2(pdf) if self.profile.present?
+
+    self.build_employement_records(pdf) if self.employment_records.any?
+
+    self.build_resume_lists(pdf)
+
+    pdf.text "\n"
+
+    if self.references.any?
+      self.build_references(pdf)
+    else
+      pdf.font_size 16
+      pdf.text "References available upon request."
+    end
+
+    # pdf.render_file "resume.pdf"
+    pdf
+  end
+
+  def build_profile_section1(pdf)
+    pdf.text self.profile.address1, align: :center
+
+    if self.profile.address2.present?
+      pdf.text self.profile.address2, align: :center
+    end
+
+    pdf.text "#{self.profile.city}, #{self.profile.state}, #{self.profile.zip_code}", align: :center
+    pdf.text "\n"
+
+    if self.profile.phone.present?
+      if self.profile.phone.length == 10
+        pdf.text "#{self.format_phone(self.profile.phone)}", align: :center
+      else
+        pdf.text "#{self.profile.phone}", align: :center
+      end
+    end
+  end
+
+  def build_profile_section2(pdf)
+    if self.profile.skype_name.present?
       pdf.text "Skype Name: #{self.profile.skype_name}", align: :center
       pdf.text "\n"
     else
       pdf.text "\n"
     end
 
-    if self.profile.present? && self.profile.job_description.present?
+    if self.profile.job_description.present?
       pdf.font_size 16
       pdf.text "Objective", style: :bold
       pdf.font_size 12
@@ -98,33 +120,35 @@ class User < ApplicationRecord
       end
     end
 
-    # Display Employment History
-    if self.employment_records.any?
-      pdf.font_size 20
-      pdf.text "Employment History", style: :bold
+  end
+
+  def build_employement_records(pdf)
+    pdf.font_size 20
+    pdf.text "Employment History", style: :bold
+    pdf.text "\n"
+
+    self.employment_records.order(:sort_order).each do |employment_record|
+      pdf.font_size 16
+      pdf.text employment_record.employer_name, style: :bold
+      pdf.font_size 12
+      pdf.text employment_record.start_date.strftime("%B %Y") + " - " + employment_record.format_end_date
+      pdf.text employment_record.job_title
       pdf.text "\n"
-      self.employment_records.order(:sort_order).each do |employment_record|
-        pdf.font_size 16
-        pdf.text employment_record.employer_name, style: :bold
-        pdf.font_size 12
-        pdf.text employment_record.start_date.strftime("%B %Y") + " - " + employment_record.format_end_date
-        pdf.text employment_record.job_title
-        pdf.text "\n"
 
-        pdf.text "Job Description", style: :bold
-        sections = self.split_text(employment_record.job_description)
-        sections.each do |section|
-          unless section.blank?
-            pdf.text self.sanitize_text(section)
-            pdf.text "\n"
-          end
+      pdf.text "Job Description", style: :bold
+      sections = self.split_text(employment_record.job_description)
+      sections.each do |section|
+        unless section.blank?
+          pdf.text self.sanitize_text(section)
+          pdf.text "\n"
         end
-
-        pdf.text "\n"
       end
-    end
 
-    # Display Resume List
+      pdf.text "\n"
+    end
+  end
+
+  def build_resume_lists(pdf)
     ResumeList::LIST_TYPES.each_with_index do |list_type, index|
 
       if ResumeList.my_resume_list_by_type(self.id, list_type).any?
@@ -139,44 +163,35 @@ class User < ApplicationRecord
         end
       end
     end
+  end
+
+  def build_references(pdf)
+    pdf.font_size 20
+    pdf.text "References", style: :bold
     pdf.text "\n"
 
-    # Display References
-    if self.references.any?
-      pdf.font_size 20
-      pdf.text "References", style: :bold
+    self.references.order(:sort_order).each do |reference|
+      pdf.font_size 16
+      pdf.text reference.reference_name, style: :bold
+      pdf.font_size 12
+
+      pdf.text reference.email
+
+      if reference.phone.length == 10
+        pdf.text "#{self.format_phone(reference.phone)}"
+      else
+        pdf.text "#{reference.phone}"
+      end
+
       pdf.text "\n"
-
-      self.references.order(:sort_order).each do |reference|
-        pdf.font_size 16
-        pdf.text reference.reference_name, style: :bold
-        pdf.font_size 12
-
-        pdf.text reference.email
-
-        if reference.phone.length == 10
-          pdf.text "#{self.format_phone(reference.phone)}"
-        else
-          pdf.text "#{reference.phone}"
-        end
-
-        pdf.text "\n"
-        sections = self.split_text(reference.description)
-        sections.each do |section|
-          unless section.blank?
-            pdf.text self.sanitize_text(section)
-            pdf.text "\n"
-          end
+      sections = self.split_text(reference.description)
+      sections.each do |section|
+        unless section.blank?
+          pdf.text self.sanitize_text(section)
+          pdf.text "\n"
         end
       end
-    else
-      pdf.font_size 16
-      pdf.text "References available upon request."
     end
-
-    # pdf.render_file "resume.pdf"
-
-    pdf
   end
 
   def format_phone(phone_number)
