@@ -98,28 +98,33 @@ class User < ApplicationRecord
   end
 
   def build_profile_section2(pdf)
+    self.display_sype_name(pdf)
+
+    display_job_description(pdf) if self.profile.job_description.present?
+  end
+
+  def display_sype_name(pdf)
     if self.profile.skype_name.present?
       pdf.text "Skype Name: #{self.profile.skype_name}", align: :center
       pdf.text "\n"
     else
       pdf.text "\n"
     end
+  end
 
-    if self.profile.job_description.present?
-      pdf.font_size 16
-      pdf.text "Objective", style: :bold
-      pdf.font_size 12
-      pdf.text "\n"
+  def display_job_description(pdf)
+    pdf.font_size 16
+    pdf.text "Objective", style: :bold
+    pdf.font_size 12
+    pdf.text "\n"
 
-      sections = self.split_text(self.profile.job_description)
-      sections.each do |section|
-        unless section.blank?
-          pdf.text self.sanitize_text(section)
-          pdf.text "\n"
-        end
+    sections = self.split_text(self.profile.job_description)
+    sections.each do |section|
+      unless section.blank?
+        pdf.text self.sanitize_text(section)
+        pdf.text "\n"
       end
     end
-
   end
 
   def build_employement_records(pdf)
@@ -177,19 +182,28 @@ class User < ApplicationRecord
 
       pdf.text reference.email
 
-      if reference.phone.length == 10
-        pdf.text "#{self.format_phone(reference.phone)}"
-      else
-        pdf.text "#{reference.phone}"
-      end
+      self.display_phone_number(pdf, reference)
 
       pdf.text "\n"
-      sections = self.split_text(reference.description)
-      sections.each do |section|
-        unless section.blank?
-          pdf.text self.sanitize_text(section)
-          pdf.text "\n"
-        end
+
+      self.display_reference_description(pdf, reference)
+    end
+  end
+
+  def display_phone_number(pdf, reference)
+    if reference.phone.length == 10
+      pdf.text "#{self.format_phone(reference.phone)}"
+    else
+      pdf.text "#{reference.phone}"
+    end
+  end
+
+  def display_reference_description(pdf, reference)
+    sections = self.split_text(reference.description)
+    sections.each do |section|
+      unless section.blank?
+        pdf.text self.sanitize_text(section)
+        pdf.text "\n"
       end
     end
   end
