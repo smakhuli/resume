@@ -75,4 +75,28 @@ RSpec.describe User, type: :model do
     expect(user3).to eq users.first
   end
 
+  it "checks if user has access" do
+    user1 = build(:user)
+    user1.save!
+    user2 = build(:user)
+    user2.save!
+
+    expect(user1.has_access?(user2.id)).to eq false
+    expect(user1.has_access?(user1.id)).to eq true
+
+    user1.role = 'admin'
+    user1.save!
+    expect(user1.has_access?(user2.id)).to eq true
+  end
+
+  it "finds public users" do
+    expect(User.public.count).to eq User.count
+
+    user1 = build(:user, make_private: true)
+    user1.save!
+
+    expect(User.public.count).to_not eq User.count
+    expect(User.public.count).to eq (User.count - 1)
+  end
+
 end
