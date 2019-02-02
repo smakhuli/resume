@@ -56,7 +56,7 @@
 <!-- Display Employment Records -->
 
 <% if @user.employment_records.any? %>
-  <%= button_to 'Show/Hide Employment History Section', "#", class: "toggle-employment-records standard-button toggle-button" %>
+  <%= button_to 'Hide Employment History Section', "#", class: "toggle-employment-records standard-button toggle-button" %>
   <div class="employment-records">
     <h1>Employment History</h1>
     <p>
@@ -88,7 +88,7 @@
 
   <% if ResumeList.my_resume_list_by_type(@user.id, list_type).any? %>
     <br/>
-    <%= button_to "Show/Hide #{ResumeList::LIST_TITLES[index]} Section", "#", class: "toggle-#{ResumeList::LIST_DIV_HEADERS[index]} standard-button toggle-button" %>
+    <%= button_to "Hide #{ResumeList::LIST_TITLES[index]} Section", "#", class: "toggle-#{ResumeList::LIST_DIV_HEADERS[index]} standard-button toggle-button" %>
   <% end %>
 
   <div class="<%= "#{ResumeList::LIST_DIV_HEADERS[index]}" %>">
@@ -100,7 +100,7 @@
 <!-- Display References -->
 <% if @user.references.any? %>
   <br/>
-  <%= button_to 'Show/Hide References Section', "#", class: "toggle-references standard-button toggle-button" %>
+  <%= button_to 'Hide References Section', "#", class: "toggle-references standard-button toggle-button" %>
   <div class="references">
     <h2>References</h2>
     <p>
