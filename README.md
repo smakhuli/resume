@@ -10,7 +10,7 @@ Make sure to run bundle install after cloning the project.
 #### PostgreSQL Database:
 
 * To create the database, run rake db:create
-* Run rake db:migrate to run migrations
+* Run rake db:migrate to run database migrations
 
 ####Site Information:
 
