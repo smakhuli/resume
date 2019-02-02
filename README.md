@@ -1,24 +1,23 @@
-# README
+# Resume Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Author: Sami Roger Makhuli
 
-Things you may want to cover:
+The resume application allows a signed in user to create a resume. 
+A user with a role of admin is able to manage all resumes on the site. 
 
-* Ruby version - ruby 2.5.1p57 (2018-03-29 revision 63029)
+Make sure to run bundle install after cloning the project.
 
-* System dependencies
+#### PostgreSQL Database:
 
-* Configuration
+* To create the database, run rake db:create
+* Run rake db:migrate to run migrations
 
-* Database creation
+####Site Information:
 
-* Database initialization
+* Ruby version - ruby 2.5.1p57
 
-* How to run the test suite
+* Rails version - 5.2.1
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
 
-* ...
+
