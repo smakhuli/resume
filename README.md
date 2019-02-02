@@ -12,7 +12,7 @@ Make sure to run bundle install after cloning the project.
 * To create the database, run rake db:create
 * Run rake db:migrate to run database migrations
 
-####Site Information:
+#### Site Information:
 
 * Ruby version - ruby 2.5.1p57
 
