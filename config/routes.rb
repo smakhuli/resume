@@ -4,7 +4,6 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
   }
 
-  get 'resume/index'
   get "/resumes" => "users#index"
 
   resources :users do
