@@ -1,7 +1,8 @@
-<h1>Resumes</h1>
+<h1 class="user-header">Resumes</h1>
 
 <% if @users.any? %>
-  <table>
+  <div class="user-index">
+  <table class="user-table">
 
     <% @users.each do |user| %>
       <tr>
@@ -9,7 +10,7 @@
 
         <% if user_signed_in? && (current_user.is_owner?(user) || current_user.is_admin?) %>
 
-          <td><%= button_to 'User', edit_user_path(user), class: "standard-button nav-button", method: :get %></td>
+          <td><%= button_to 'User', edit_user_path(user), class: "standard-button first-button nav-button", method: :get %></td>
 
           <% if user.profile.present? %>
             <td><%= button_to 'Profile', edit_user_profile_path(user.profile, user_id: user.id), class: "standard-button nav-button", method: :get %></td>
@@ -43,7 +44,8 @@
   <% else %>
     <p>No Users Have been Entered</p>
   <% end %>
-</table>
+  </table>
+  </div>
 
 <br>
 <table>
