@@ -20,4 +20,3 @@ Make sure to run bundle install after cloning the project.
 
 
 
-
