@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   require "prawn"
-  # before_action :authenticate_user!
+
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :show_resume]
 
   def index
     if user_signed_in?
@@ -15,15 +16,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-
     unless user_signed_in? && (current_user.is_owner?(@user) || current_user.is_admin?)
       redirect_to users_path, alert: 'You do not have authority to edit this user'
     end
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def create
@@ -39,8 +37,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-
     if @user.update(user_params)
       @user.remove_avatar_image if params[:user][:remove_avatar] == '1' && @user.avatar.url.present?
 
@@ -51,8 +47,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-
     @user.destroy_other_resume_info
 
     @user.destroy
@@ -76,6 +70,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :middle_name, :last_name, :email, :role, :make_private, :avatar)
