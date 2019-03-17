@@ -77,11 +77,11 @@ gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 
 gem 'figaro'
-gem 'fog-aws'
+# gem 'fog-aws'
 gem 'jquery-rails'
 # gem 'trix'
 # TODO https://github.com/maclover7/trix/issues/54
 gem 'trix-rails', require: 'trix'
 gem 'prawn', '~>2.2.0'
 gem 'devise'
-
+gem 'friendly_id', '~> 5.1.0'

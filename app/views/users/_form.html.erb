@@ -47,22 +47,22 @@
     </p>
   <% end %>
 
-  <div class="field-group">
-    <%= form.label :avatar %>
+<!--  <div class="field-group">-->
+    <%#= form.label :avatar %>
 
-    <% unless @user.avatar.url.nil? %>
-      <%= image_tag(@user.avatar.url().to_s) %>
-    <% end %>
+    <%# unless @user.avatar.url.nil? %>
+      <%#= image_tag(@user.avatar.url().to_s) %>
+    <%# end %>
 
-    <%= form.file_field :avatar %>
+    <%#= form.file_field :avatar %>
 
-    <% if @user.avatar_url.present? %>
-      <div class="field checkbox">
-        <%= form.check_box :remove_avatar %>
-        <%= form.label :remove_avatar, 'Remove Avatar' %>
-      </div>
-    <% end %>
-  </div>
+    <%# if @user.avatar_url.present? %>
+<!--      <div class="field checkbox">-->
+        <%#= form.check_box :remove_avatar %>
+        <%#= form.label :remove_avatar, 'Remove Avatar' %>
+<!--      </div>-->
+    <%# end %>
+<!--  </div>-->
 
   <p>
     <table>

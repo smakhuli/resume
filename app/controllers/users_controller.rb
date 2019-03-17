@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      @user.remove_avatar_image if params[:user][:remove_avatar] == '1' && @user.avatar.url.present?
+      # @user.remove_avatar_image if params[:user][:remove_avatar] == '1' && @user.avatar.url.present?
 
       redirect_to @user, notice: 'User was successfully updated'
     else
@@ -55,7 +55,6 @@ class UsersController < ApplicationController
   end
 
   def show_resume
-    @user = User.find(params[:id])
   end
 
   def generate_pdf
@@ -72,10 +71,10 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :middle_name, :last_name, :email, :role, :make_private, :avatar)
+    params.require(:user).permit(:first_name, :middle_name, :last_name, :email, :role, :make_private)
   end
 end
