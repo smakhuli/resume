@@ -44,9 +44,11 @@
       <%= button_to 'Generate Resume as PDF', generate_pdf_user_path(@user), class: "standard-button nav-button", method: :get %>
     </td>
 
-    <td>
-      <%= render partial: 'layouts/back_button' %>
-    </td>
+    <% if user_signed_in? %>
+      <td>
+        <%= render partial: 'layouts/back_button' %>
+      </td>
+    <% end %>
   </tr>
 </table>
 

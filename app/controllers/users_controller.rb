@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   require "prawn"
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :show_resume]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :show_resume, :generate_pdf]
 
   def index
     if user_signed_in?
@@ -58,8 +58,6 @@ class UsersController < ApplicationController
   end
 
   def generate_pdf
-    @user = User.find(params[:id])
-
     pdf = @user.build_resume_pdf
 
     send_data pdf.render,
