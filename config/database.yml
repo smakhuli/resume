@@ -18,7 +18,7 @@ development:
   encoding: unicode
   database: resume_development
   pool: 5
-  username: samimakhuli
+  username: samir.makhuli
   password:
   timeout: 5000
 
@@ -38,6 +38,6 @@ test:
   encoding: unicode
   database: resume_test
   pool: 5
-  username: samimakhuli
+  username: samir.makhuli
   password:
   timeout: 5000
